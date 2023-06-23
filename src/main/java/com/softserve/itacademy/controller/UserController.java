@@ -1,7 +1,6 @@
 package com.softserve.itacademy.controller;
 
 import com.softserve.itacademy.model.User;
-import com.softserve.itacademy.security.WebAuthenticationToken;
 import com.softserve.itacademy.service.RoleService;
 import com.softserve.itacademy.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -94,9 +93,8 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id) {
-        WebAuthenticationToken authentication = (WebAuthenticationToken) SecurityContextHolder.getContext()
-                .getAuthentication();
-        if (((User)authentication.getDetails()).getId() == id) {
+        User currentUser = userService.getCurrentUser();
+        if (currentUser.getId() == id) {
             userService.delete(id);
             SecurityContextHolder.clearContext();
             return "redirect:/login-form";

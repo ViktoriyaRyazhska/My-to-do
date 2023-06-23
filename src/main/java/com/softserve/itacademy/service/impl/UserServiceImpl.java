@@ -4,12 +4,13 @@ import com.softserve.itacademy.exception.NullEntityReferenceException;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.repository.UserRepository;
 import com.softserve.itacademy.service.UserService;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service("userServiceImpl")
 public class UserServiceImpl implements UserService {
@@ -55,11 +56,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public Optional<User> loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
         if (user == null) {
-            throw new UsernameNotFoundException("User not Found!");
+            return Optional.empty();
         }
-        return user;
+        return Optional.of(user);
+    }
+
+    @Override
+    public User getCurrentUser() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmail(name);
     }
 }

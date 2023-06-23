@@ -1,14 +1,24 @@
 package com.softserve.itacademy.service;
 
 import com.softserve.itacademy.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface UserService extends UserDetailsService {
+public interface UserService {
     User create(User user);
+
     User readById(long id);
+
     User update(User user);
+
     void delete(long id);
+
     List<User> getAll();
+
+    Optional<User> loadUserByUsername(String username);
+
+    User getCurrentUser();
 }

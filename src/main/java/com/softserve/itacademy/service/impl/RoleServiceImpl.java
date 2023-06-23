@@ -6,7 +6,7 @@ import com.softserve.itacademy.repository.RoleRepository;
 import com.softserve.itacademy.service.RoleService;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
