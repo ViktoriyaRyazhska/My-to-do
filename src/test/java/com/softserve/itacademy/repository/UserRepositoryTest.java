@@ -1,6 +1,7 @@
 package com.softserve.itacademy.repository;
 
-import com.softserve.itacademy.model.User;
+import com.softserve.itacademy.component.user.UserRepository;
+import com.softserve.itacademy.component.user.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -34,7 +35,7 @@ public class UserRepositoryTest {
         user2.setPassword("2222");
 
         User expected = userRepository.save(user2);
-        User actual = userRepository.findByEmail("nick@mail.com");
+        User actual = userRepository.findByEmail("nick@mail.com").orElseThrow();
 
         assertEquals(expected, actual);
     }
@@ -48,7 +49,7 @@ public class UserRepositoryTest {
         user.setPassword("1111");
         userRepository.save(user);
 
-        User actual = userRepository.findByEmail("nick@mail.com");
+        User actual = userRepository.findByEmail("nick@mail.com").orElseThrow();
 
         assertNull(actual);
     }

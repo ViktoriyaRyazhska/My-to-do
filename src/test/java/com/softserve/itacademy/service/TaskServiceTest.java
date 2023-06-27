@@ -1,12 +1,12 @@
 package com.softserve.itacademy.service;
 
-import com.softserve.itacademy.exception.NullEntityReferenceException;
-import com.softserve.itacademy.model.Priority;
-import com.softserve.itacademy.model.State;
-import com.softserve.itacademy.model.Task;
-import com.softserve.itacademy.model.ToDo;
-import com.softserve.itacademy.repository.TaskRepository;
-import com.softserve.itacademy.service.impl.TaskServiceImpl;
+import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import com.softserve.itacademy.component.task.Priority;
+import com.softserve.itacademy.component.state.State;
+import com.softserve.itacademy.component.task.Task;
+import com.softserve.itacademy.component.todo.ToDo;
+import com.softserve.itacademy.component.task.TaskRepository;
+import com.softserve.itacademy.component.task.TaskServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -26,7 +26,7 @@
     </span>
         <br>
         <br>
-        <table border="1">
+        <table class="table">
             <tr>
                 <th>No.</th>
                 <th>Id</th>
@@ -56,7 +56,7 @@
                     <b>Collaborators:</b>
                 </td>
                 <td>
-                    <table border="1">
+                    <table class="table">
                         <tr th:each="collaborator, iStat: ${todo.collaborators}">
                             <td th:text="${iStat.index + 1}" />
                             <td>

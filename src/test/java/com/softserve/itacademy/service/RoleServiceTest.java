@@ -1,9 +1,9 @@
 package com.softserve.itacademy.service;
 
-import com.softserve.itacademy.exception.NullEntityReferenceException;
-import com.softserve.itacademy.model.Role;
-import com.softserve.itacademy.repository.RoleRepository;
-import com.softserve.itacademy.service.impl.RoleServiceImpl;
+import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import com.softserve.itacademy.component.userrole.Role;
+import com.softserve.itacademy.component.userrole.RoleRepository;
+import com.softserve.itacademy.component.userrole.RoleServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

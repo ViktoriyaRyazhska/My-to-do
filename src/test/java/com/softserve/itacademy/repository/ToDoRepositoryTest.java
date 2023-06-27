@@ -1,7 +1,9 @@
 package com.softserve.itacademy.repository;
 
-import com.softserve.itacademy.model.ToDo;
-import com.softserve.itacademy.model.User;
+import com.softserve.itacademy.component.todo.ToDoRepository;
+import com.softserve.itacademy.component.user.UserRepository;
+import com.softserve.itacademy.component.todo.ToDo;
+import com.softserve.itacademy.component.user.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

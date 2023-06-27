@@ -1,7 +1,7 @@
 package com.softserve.itacademy.config;
 
-import com.softserve.itacademy.model.Role;
-import com.softserve.itacademy.model.User;
+import com.softserve.itacademy.component.userrole.Role;
+import com.softserve.itacademy.component.user.User;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;

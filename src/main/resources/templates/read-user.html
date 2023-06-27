@@ -12,10 +12,10 @@
     <div layout:fragment="content" style="margin: 0 auto; width: max-content">
         <h2 th:text="${'All To-Dos of ' + user.firstName + ' ' + user.lastName}"/>
         <form th:action="@{|/todos/create/users/${user.id}|}" method="get">
-            <input type="submit" value="Create To-Do">
+            <input type="submit" class="btn btn-primary" value="Create To-Do">
         </form>
         <br>
-        <table border="1">
+        <table class="table">
             <tr>
                 <th>No.</th>
                 <th>Id</th>

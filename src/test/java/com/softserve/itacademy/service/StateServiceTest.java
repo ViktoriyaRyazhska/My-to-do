@@ -1,9 +1,9 @@
 package com.softserve.itacademy.service;
 
-import com.softserve.itacademy.exception.NullEntityReferenceException;
-import com.softserve.itacademy.model.State;
-import com.softserve.itacademy.repository.StateRepository;
-import com.softserve.itacademy.service.impl.StateServiceImpl;
+import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import com.softserve.itacademy.component.state.State;
+import com.softserve.itacademy.component.state.StateRepository;
+import com.softserve.itacademy.component.state.StateServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
