@@ -1,4 +1,4 @@
-package com.softserve.itacademy.repository;
+package com.softserve.itacademy.component.task;
 
 import com.softserve.itacademy.component.task.TaskRepository;
 import com.softserve.itacademy.component.todo.ToDoRepository;

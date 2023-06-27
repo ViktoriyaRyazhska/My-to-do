@@ -1,4 +1,4 @@
-package com.softserve.itacademy.repository;
+package com.softserve.itacademy.component.state;
 
 import com.softserve.itacademy.component.state.StateRepository;
 import com.softserve.itacademy.component.state.State;

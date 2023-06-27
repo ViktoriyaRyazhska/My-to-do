@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentUser() {
-        WebAuthenticationToken authentication
-                = (WebAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        return (User) authentication.getDetails();
+        WebAuthenticationToken authentication = (WebAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        User details = (User) authentication.getDetails();
+        return details;
     }
 }

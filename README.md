@@ -1,12 +1,13 @@
 # Java Online Marathon
+
 ## To-Do List Project
 
-У базі збережено трьох користувачів з ролями ADMIN та USER.
+Three users with ADMIN and USER roles are stored in the database.
 
-| Логін         | Пароль | Роль  |
-| ------------- |:------:|:-----:|
-| mike@mail.com | 1111   | ADMIN |
-| nick@mail.com | 2222   | USER  |
-| nora@mail.com | 3333   | USER  |
+| Login         | Password | Role  |
+|---------------|:--------:|:-----:|
+| mike@mail.com |   1111   | ADMIN |
+| nick@mail.com |   2222   | USER  |
+| nora@mail.com |   3333   | USER  |
 
-Користувач з роллю ADMIN має повний доступ до всіх ресурсів.
+A user with the ADMIN role has full access to all resources.

@@ -1,4 +1,4 @@
-package com.softserve.itacademy.service;
+package com.softserve.itacademy.component.state;
 
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
 import com.softserve.itacademy.component.state.State;

@@ -10,7 +10,7 @@ public class HomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-    @GetMapping({"/", "home"})
+    @GetMapping("/")
     public String home() {
 
         logger.info("Home page was loaded!");
