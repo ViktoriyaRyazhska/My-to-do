@@ -1,27 +1,36 @@
 package com.softserve.itacademy.component.task;
 
+import com.softserve.itacademy.component.state.StateRepository;
+import com.softserve.itacademy.component.todo.ToDoRepository;
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
 import jakarta.persistence.EntityNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class TaskService {
 
-    private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
-
     private final TaskRepository taskRepository;
+    private final ToDoRepository toDoRepository;
+    private final StateRepository stateRepository;
+    private final TaskTransformer taskTransformer;
 
-    public TaskService(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
+    public TaskDto create(TaskDto taskDto) {
+        Task task = taskTransformer.fillEntityFields(
+                new Task(),
+                taskDto,
+                toDoRepository.findById(taskDto.getTodoId()).orElseThrow(),
+                stateRepository.findByName("New")
+        );
 
-    public Task create(Task task) {
         if (task != null) {
-            return taskRepository.save(task);
+            Task savedTask = taskRepository.save(task);
+            return taskTransformer.convertToDto(savedTask);
         }
         throw new NullEntityReferenceException("Task cannot be 'null'");
     }
@@ -29,7 +38,7 @@ public class TaskService {
     public Task readById(long id) {
 
         EntityNotFoundException exception = new EntityNotFoundException("Task with id " + id + " not found");
-        logger.error(exception.getMessage(), exception);
+        log.error(exception.getMessage(), exception);
 
         return taskRepository.findById(id).orElseThrow(
                 () -> exception);

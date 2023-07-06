@@ -1,6 +1,6 @@
 <nav xmlns:th="http://www.thymeleaf.org"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-     class="navbar navbar-expand-lg bg-primary" >
+     class="navbar navbar-expand-lg bg-primary navbar-dark" >
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -23,7 +23,7 @@
         </div>
         <a class="nav-link" th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
         <form th:action="@{/logout}" method="post" style="display: inline-block" sec:authorize="isAuthenticated()">
-            <input type="submit" class="btn" value="Log out">
+            <input type="submit" class="btn text-white" value="Log out">
         </form>
     </div>
 </nav>

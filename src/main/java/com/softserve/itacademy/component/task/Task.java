@@ -3,11 +3,17 @@ package com.softserve.itacademy.component.task;
 import com.softserve.itacademy.component.state.State;
 import com.softserve.itacademy.component.todo.ToDo;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
 @Entity
 @Table(name = "tasks")
+@Getter
+@Setter
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -28,46 +34,6 @@ public class Task {
     private State state;
 
     public Task() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public TaskPriority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(TaskPriority priority) {
-        this.priority = priority;
-    }
-
-    public ToDo getTodo() {
-        return todo;
-    }
-
-    public void setTodo(ToDo todo) {
-        this.todo = todo;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
     }
 
     @Override

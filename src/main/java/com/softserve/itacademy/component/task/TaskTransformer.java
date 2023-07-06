@@ -2,9 +2,12 @@ package com.softserve.itacademy.component.task;
 
 import com.softserve.itacademy.component.state.State;
 import com.softserve.itacademy.component.todo.ToDo;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TaskTransformer {
-    public static TaskDto convertToDto(Task task) {
+
+    public TaskDto convertToDto(Task task) {
         return new TaskDto(
                 task.getId(),
                 task.getName(),
@@ -14,8 +17,7 @@ public class TaskTransformer {
         );
     }
 
-    public static Task convertToEntity(TaskDto taskDto, ToDo todo, State state) {
-        Task task = new Task();
+    public Task fillEntityFields(Task task, TaskDto taskDto, ToDo todo, State state) {
         task.setId(taskDto.getId());
         task.setName(taskDto.getName());
         task.setPriority(TaskPriority.valueOf(taskDto.getPriority()));

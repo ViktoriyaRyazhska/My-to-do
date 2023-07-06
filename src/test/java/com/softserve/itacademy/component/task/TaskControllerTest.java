@@ -29,12 +29,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = { TaskController.class, SpringSecurityTestConfiguration.class })
+@ContextConfiguration(classes = { TaskController.class, SpringSecurityTestConfiguration.class, TaskTransformer.class })
 public class TaskControllerTest {
 
     @MockBean private TaskService taskService;
     @MockBean private ToDoService todoService;
     @MockBean private StateService stateService;
+    private TaskTransformer taskTransformer = new TaskTransformer();
 
     @Autowired
     private MockMvc mvc;
@@ -72,7 +73,7 @@ public class TaskControllerTest {
 
         when(todoService.readById(anyLong())).thenReturn(todo);
         when(stateService.getByName(anyString())).thenReturn(new State());
-        when(taskService.create(any(Task.class))).thenReturn(new Task());
+        when(taskService.create(any(TaskDto.class))).thenReturn(new TaskDto());
 
         mvc.perform(post("/tasks/create/todos/1")
                 .param("name", "Task #1")
@@ -85,9 +86,7 @@ public class TaskControllerTest {
                 .andExpect(redirectedUrl("/todos/1/read"))
                 .andDo(print());
 
-        verify(todoService, times(1)).readById(anyLong());
-        verify(stateService, times(1)).getByName(anyString());
-        verify(taskService, times(1)).create(any(Task.class));
+        verify(taskService, times(1)).create(any(TaskDto.class));
 
         verifyNoMoreInteractions(todoService, stateService, taskService);
     }
@@ -99,10 +98,7 @@ public class TaskControllerTest {
         ToDo todo = new ToDo();
         todo.setId(1);
 
-        TaskDto taskDto = new TaskDto();
-        taskDto.setName("");
-        taskDto.setPriority(TaskPriority.LOW.name());
-        taskDto.setTodoId(todo.getId());
+        TaskDto taskDto = new TaskDto(0, "", TaskPriority.LOW.name(), todo.getId(), 0);
 
         when(todoService.readById(anyLong())).thenReturn(todo);
 
@@ -143,7 +139,7 @@ public class TaskControllerTest {
         task.setTodo(todo);
         task.setState(state);
 
-        TaskDto taskDto = TaskTransformer.convertToDto(task);
+        TaskDto taskDto = taskTransformer.convertToDto(task);
 
         when(taskService.readById(anyLong())).thenReturn(task);
         when(stateService.getAll()).thenReturn(Collections.singletonList(new State()));
@@ -196,12 +192,7 @@ public class TaskControllerTest {
     @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
     public void testErrorUpdatePostMethod() throws Exception {
 
-        TaskDto taskDto = new TaskDto();
-        taskDto.setId(1);
-        taskDto.setName("");
-        taskDto.setPriority(TaskPriority.LOW.name());
-        taskDto.setStateId(1);
-        taskDto.setTodoId(1);
+        TaskDto taskDto = new TaskDto(1, "", TaskPriority.LOW.name(), 1, 1);
 
         when(stateService.getAll()).thenReturn(Collections.singletonList(new State()));
 

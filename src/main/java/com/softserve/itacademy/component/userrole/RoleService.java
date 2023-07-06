@@ -2,17 +2,16 @@ package com.softserve.itacademy.component.userrole;
 
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class RoleService {
-    private final RoleRepository roleRepository;
 
-    public RoleService(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
+    private final RoleRepository roleRepository;
 
     public Role create(Role role) {
         if (role != null) {

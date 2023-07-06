@@ -1,6 +1,7 @@
 package com.softserve.itacademy.component.user;
 
 import com.softserve.itacademy.component.userrole.RoleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,17 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
-
-    public UserController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @PreAuthorize("hasAuthority('ADMIN') or isAnonymous()")
     @GetMapping("/create")
@@ -44,7 +40,7 @@ public class UserController {
         return "redirect:/todos/all/users/" + newUser.getId();
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
+    @PreAuthorize("authentication.details.id == #id")
     @GetMapping("/{id}/read")
     public String read(@PathVariable long id, Model model) {
         User user = userService.readById(id);
@@ -52,7 +48,7 @@ public class UserController {
         return "user-info";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
+    @PreAuthorize("authentication.details.id == #id")
     @GetMapping("/{id}/update")
     public String update(@PathVariable long id, Model model) {
         User user = userService.readById(id);
@@ -61,7 +57,7 @@ public class UserController {
         return "update-user";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
+    @PreAuthorize("authentication.details.id == #id")
     @PostMapping("/{id}/update")
     public String update(@PathVariable long id, @RequestParam("oldPassword") String oldPassword,
                          @RequestParam("roleId") long roleId, Model model,
@@ -88,14 +84,14 @@ public class UserController {
         return "redirect:/users/" + id + "/read";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
+    @PreAuthorize("authentication.details.id == #id")
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id) {
         User currentUser = userService.getCurrentUser();
         if (currentUser.getId() == id) {
             userService.delete(id);
             SecurityContextHolder.clearContext();
-            return "redirect:/login-form";
+            return "redirect:/login";
         }
         userService.delete(id);
         return "redirect:/users/all";

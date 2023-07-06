@@ -31,12 +31,10 @@
                         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="Update" />
-                        <input type="reset" value="Clear" />
-                    </td>
-                </tr>
+                <div class="mb-3">
+                    <input type="reset" class="btn btn-outline-secondary" value="Clear"/>
+                    <input type="submit" class="btn btn-primary" value="Create"/>
+                </div>
             </table>
             <input type="hidden" name="id" th:value="*{id}">
             <input type="hidden" th:field="*{createdAt}" th:value="*{createdAt}">

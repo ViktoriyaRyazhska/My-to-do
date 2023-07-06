@@ -303,7 +303,7 @@ public class UserControllerTest {
         mvc.perform(get("/users/1/delete")
                 .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/login-form"))
+                .andExpect(redirectedUrl("/login"))
                 .andDo(print());
 
         verify(userService, times(1)).delete(anyLong());

@@ -13,7 +13,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-
         logger.info("Home page was loaded!");
         return "home";
     }

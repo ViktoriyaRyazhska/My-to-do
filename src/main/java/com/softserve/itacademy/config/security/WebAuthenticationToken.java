@@ -33,6 +33,10 @@ public class WebAuthenticationToken implements Authentication {
         return user;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     @Override
     public Object getPrincipal() {
         return user.getUsername();

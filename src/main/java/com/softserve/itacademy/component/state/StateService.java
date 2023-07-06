@@ -2,19 +2,17 @@ package com.softserve.itacademy.component.state;
 
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class StateService {
 
     private final StateRepository stateRepository;
-
-    public StateService(StateRepository stateRepository) {
-        this.stateRepository = stateRepository;
-    }
 
     public State create(State state) {
         if (state != null) {
@@ -42,7 +40,6 @@ public class StateService {
     }
 
     public List<State> getAll() {
-//        return stateRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         return stateRepository.findAllByOrderById();
     }
 
