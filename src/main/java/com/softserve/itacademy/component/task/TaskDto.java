@@ -2,6 +2,7 @@ package com.softserve.itacademy.component.task;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 import java.util.Objects;
 
 public class TaskDto {

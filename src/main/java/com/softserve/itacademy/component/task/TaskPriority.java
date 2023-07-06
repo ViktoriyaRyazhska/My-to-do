@@ -1,5 +1,5 @@
 package com.softserve.itacademy.component.task;
 
-public enum Priority {
+public enum TaskPriority {
     LOW, MEDIUM, HIGH
 }

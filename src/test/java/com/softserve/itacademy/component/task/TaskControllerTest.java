@@ -55,7 +55,7 @@ public class TaskControllerTest {
                 .andExpect(model().size(3))
                 .andExpect(model().attribute("task", new TaskDto()))
                 .andExpect(model().attribute("todo", todo))
-                .andExpect(model().attribute("priorities", Priority.values()))
+                .andExpect(model().attribute("priorities", TaskPriority.values()))
                 .andDo(print());
 
         verify(todoService, times(1)).readById(anyLong());
@@ -76,7 +76,7 @@ public class TaskControllerTest {
 
         mvc.perform(post("/tasks/create/todos/1")
                 .param("name", "Task #1")
-                .param("priority", Priority.LOW.name())
+                .param("priority", TaskPriority.LOW.name())
                 .param("todoId", "1")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
@@ -101,7 +101,7 @@ public class TaskControllerTest {
 
         TaskDto taskDto = new TaskDto();
         taskDto.setName("");
-        taskDto.setPriority(Priority.LOW.name());
+        taskDto.setPriority(TaskPriority.LOW.name());
         taskDto.setTodoId(todo.getId());
 
         when(todoService.readById(anyLong())).thenReturn(todo);
@@ -118,7 +118,7 @@ public class TaskControllerTest {
                 .andExpect(model().size(3))
                 .andExpect(model().attribute("task", taskDto))
                 .andExpect(model().attribute("todo", todo))
-                .andExpect(model().attribute("priorities", Priority.values()))
+                .andExpect(model().attribute("priorities", TaskPriority.values()))
                 .andDo(print());
 
         verify(todoService, times(1)).readById(anyLong());
@@ -139,7 +139,7 @@ public class TaskControllerTest {
         Task task = new Task();
         task.setId(1);
         task.setName("Task #1");
-        task.setPriority(Priority.LOW);
+        task.setPriority(TaskPriority.LOW);
         task.setTodo(todo);
         task.setState(state);
 
@@ -154,7 +154,7 @@ public class TaskControllerTest {
                 .andExpect(view().name("update-task"))
                 .andExpect(model().size(3))
                 .andExpect(model().attribute("task", taskDto))
-                .andExpect(model().attribute("priorities", Priority.values()))
+                .andExpect(model().attribute("priorities", TaskPriority.values()))
                 .andExpect(model().attribute("states", Collections.singletonList(new State())))
                 .andDo(print());
 
@@ -175,7 +175,7 @@ public class TaskControllerTest {
         mvc.perform(post("/tasks/1/update/todos/1")
                 .param("id", "1")
                 .param("name", "Task #1")
-                .param("priority", Priority.LOW.name())
+                .param("priority", TaskPriority.LOW.name())
                 .param("stateId", "1")
                 .param("todoId", "1")
                 .with(csrf())
@@ -199,7 +199,7 @@ public class TaskControllerTest {
         TaskDto taskDto = new TaskDto();
         taskDto.setId(1);
         taskDto.setName("");
-        taskDto.setPriority(Priority.LOW.name());
+        taskDto.setPriority(TaskPriority.LOW.name());
         taskDto.setStateId(1);
         taskDto.setTodoId(1);
 
@@ -218,7 +218,7 @@ public class TaskControllerTest {
                 .andExpect(view().name("update-task"))
                 .andExpect(model().size(3))
                 .andExpect(model().attribute("task", taskDto))
-                .andExpect(model().attribute("priorities", Priority.values()))
+                .andExpect(model().attribute("priorities", TaskPriority.values()))
                 .andExpect(model().attribute("states", Collections.singletonList(new State())))
                 .andDo(print());
 

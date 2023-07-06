@@ -1,12 +1,9 @@
 package com.softserve.itacademy.component.task;
 
-import com.softserve.itacademy.config.exception.NullEntityReferenceException;
-import com.softserve.itacademy.component.task.Priority;
 import com.softserve.itacademy.component.state.State;
-import com.softserve.itacademy.component.task.Task;
 import com.softserve.itacademy.component.todo.ToDo;
-import com.softserve.itacademy.component.task.TaskRepository;
-import com.softserve.itacademy.component.task.TaskServiceImpl;
+import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +25,7 @@ public class TaskServiceTest {
     private TaskRepository taskRepository;
 
     @InjectMocks
-    private TaskServiceImpl taskService;
+    private TaskService taskService;
 
     private Task expected;
 
@@ -37,7 +33,7 @@ public class TaskServiceTest {
     public void setUp() {
         expected = new Task();
         expected.setName("test task");
-        expected.setPriority(Priority.MEDIUM);
+        expected.setPriority(TaskPriority.MEDIUM);
         expected.setState(new State());
         expected.setTodo(new ToDo());
     }

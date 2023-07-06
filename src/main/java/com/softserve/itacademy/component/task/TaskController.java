@@ -32,7 +32,7 @@ public class TaskController {
     public String create(@PathVariable("todo_id") long todoId, Model model) {
         model.addAttribute("task", new TaskDto());
         model.addAttribute("todo", todoService.readById(todoId));
-        model.addAttribute("priorities", Priority.values());
+        model.addAttribute("priorities", TaskPriority.values());
         return "create-task";
     }
 
@@ -42,7 +42,7 @@ public class TaskController {
                          @Validated @ModelAttribute("task") TaskDto taskDto, BindingResult result) {
         if (result.hasErrors()) {
             model.addAttribute("todo", todoService.readById(todoId));
-            model.addAttribute("priorities", Priority.values());
+            model.addAttribute("priorities", TaskPriority.values());
             return "create-task";
         }
         Task task = TaskTransformer.convertToEntity(
@@ -61,7 +61,7 @@ public class TaskController {
     public String update(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId, Model model) {
         TaskDto taskDto = TaskTransformer.convertToDto(taskService.readById(taskId));
         model.addAttribute("task", taskDto);
-        model.addAttribute("priorities", Priority.values());
+        model.addAttribute("priorities", TaskPriority.values());
         model.addAttribute("states", stateService.getAll());
         return "update-task";
     }
@@ -71,7 +71,7 @@ public class TaskController {
     public String update(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId, Model model,
                          @Validated @ModelAttribute("task")TaskDto taskDto, BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute("priorities", Priority.values());
+            model.addAttribute("priorities", TaskPriority.values());
             model.addAttribute("states", stateService.getAll());
             return "update-task";
         }

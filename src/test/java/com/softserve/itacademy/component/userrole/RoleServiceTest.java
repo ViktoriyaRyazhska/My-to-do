@@ -1,9 +1,7 @@
 package com.softserve.itacademy.component.userrole;
 
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
-import com.softserve.itacademy.component.userrole.Role;
-import com.softserve.itacademy.component.userrole.RoleRepository;
-import com.softserve.itacademy.component.userrole.RoleServiceImpl;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +23,7 @@ public class RoleServiceTest {
     private RoleRepository roleRepository;
 
     @InjectMocks
-    private RoleServiceImpl roleService;
+    private RoleService roleService;
 
     private Role expected;
 

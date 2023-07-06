@@ -1,7 +1,5 @@
 package com.softserve.itacademy.component.state;
 
-import com.softserve.itacademy.component.state.StateRepository;
-import com.softserve.itacademy.component.state.State;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +61,7 @@ public class StateRepositoryTest {
         stateRepository.save(state1);
 
         List<State> expected = List.of(state1, state2, state3);
-        List<State> actual = stateRepository.getAll();
+        List<State> actual = stateRepository.findAllByOrderById();
 
         assertArrayEquals(expected.toArray(), actual.toArray());
     }

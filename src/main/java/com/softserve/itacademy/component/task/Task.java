@@ -17,7 +17,7 @@ public class Task {
 
     @Column(name = "priority")
     @Enumerated(EnumType.STRING)
-    private Priority priority;
+    private TaskPriority priority;
 
     @ManyToOne
     @JoinColumn(name = "todo_id")
@@ -46,11 +46,11 @@ public class Task {
         this.name = name;
     }
 
-    public Priority getPriority() {
+    public TaskPriority getPriority() {
         return priority;
     }
 
-    public void setPriority(Priority priority) {
+    public void setPriority(TaskPriority priority) {
         this.priority = priority;
     }
 

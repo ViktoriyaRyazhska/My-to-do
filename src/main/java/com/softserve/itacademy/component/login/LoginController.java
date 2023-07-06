@@ -1,4 +1,4 @@
-package com.softserve.itacademy.component.user;
+package com.softserve.itacademy.component.login;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +12,6 @@ public class LoginController {
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString().equals("anonymousUser")) {
             return "login";
         }
-        return "redirect:/home";
+        return "redirect:/";
     }
 }

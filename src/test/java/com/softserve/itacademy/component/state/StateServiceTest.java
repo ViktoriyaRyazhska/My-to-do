@@ -1,9 +1,6 @@
 package com.softserve.itacademy.component.state;
-
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
-import com.softserve.itacademy.component.state.State;
-import com.softserve.itacademy.component.state.StateRepository;
-import com.softserve.itacademy.component.state.StateServiceImpl;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +22,7 @@ public class StateServiceTest {
     private StateRepository stateRepository;
 
     @InjectMocks
-    private StateServiceImpl stateService;
+    private StateService stateService;
 
     private State expected;
 
@@ -115,11 +111,11 @@ public class StateServiceTest {
     public void testGetAll() {
         List<State> expected = List.of(new State(), new State(), new State());
 
-        when(stateRepository.getAll()).thenReturn(expected);
+        when(stateRepository.findAllByOrderById()).thenReturn(expected);
         List<State> actual = stateService.getAll();
 
         assertEquals(expected, actual);
-        verify(stateRepository, times(1)).getAll();
+        verify(stateRepository, times(1)).findAllByOrderById();
     }
 
     @Test

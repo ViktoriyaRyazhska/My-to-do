@@ -1,11 +1,45 @@
 package com.softserve.itacademy.component.userrole;
 
+import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public interface RoleService {
-    Role create(Role role);
-    Role readById(long id);
-    Role update(Role role);
-    void delete(long id);
-    List<Role> getAll();
+@Service
+public class RoleService {
+    private final RoleRepository roleRepository;
+
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
+    public Role create(Role role) {
+        if (role != null) {
+            return roleRepository.save(role);
+        }
+        throw new NullEntityReferenceException("Role cannot be 'null'");
+    }
+
+    public Role readById(long id) {
+        return roleRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Role with id " + id + " not found"));
+    }
+
+    public Role update(Role role) {
+        if (role != null) {
+            readById(role.getId());
+            return roleRepository.save(role);
+        }
+        throw new NullEntityReferenceException("Role cannot be 'null'");
+    }
+
+    public void delete(long id) {
+        Role role = readById(id);
+        roleRepository.delete(role);
+    }
+
+    public List<Role> getAll() {
+        return roleRepository.findAll();
+    }
 }

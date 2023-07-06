@@ -1,10 +1,8 @@
 package com.softserve.itacademy.component.todo;
 
-import com.softserve.itacademy.config.exception.NullEntityReferenceException;
-import com.softserve.itacademy.component.todo.ToDo;
 import com.softserve.itacademy.component.user.User;
-import com.softserve.itacademy.component.todo.ToDoRepository;
-import com.softserve.itacademy.component.todo.ToDoServiceImpl;
+import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +25,7 @@ public class ToDoServiceTest {
     private ToDoRepository todoRepository;
 
     @InjectMocks
-    private ToDoServiceImpl todoService;
+    private ToDoService todoService;
 
     private ToDo expected;
 

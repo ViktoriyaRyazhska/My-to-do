@@ -18,7 +18,7 @@ public class TaskTransformer {
         Task task = new Task();
         task.setId(taskDto.getId());
         task.setName(taskDto.getName());
-        task.setPriority(Priority.valueOf(taskDto.getPriority()));
+        task.setPriority(TaskPriority.valueOf(taskDto.getPriority()));
         task.setTodo(todo);
         task.setState(state);
         return task;

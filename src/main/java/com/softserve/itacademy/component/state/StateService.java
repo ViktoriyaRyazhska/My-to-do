@@ -1,13 +1,56 @@
 package com.softserve.itacademy.component.state;
 
+import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
 
-public interface StateService {
-    State create(State state);
-    State readById(long id);
-    State update(State state);
-    void delete(long id);
-    List<State> getAll();
+@Service
+public class StateService {
 
-    State getByName(String name);
+    private final StateRepository stateRepository;
+
+    public StateService(StateRepository stateRepository) {
+        this.stateRepository = stateRepository;
+    }
+
+    public State create(State state) {
+        if (state != null) {
+            return stateRepository.save(state);
+        }
+        throw new NullEntityReferenceException("State cannot be 'null'");
+    }
+
+    public State readById(long id) {
+        return stateRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("State with id " + id + " not found"));
+    }
+
+    public State update(State state) {
+        if (state != null) {
+            readById(state.getId());
+            return stateRepository.save(state);
+        }
+        throw new NullEntityReferenceException("State cannot be 'null'");
+    }
+
+    public void delete(long id) {
+        State state = readById(id);
+        stateRepository.delete(state);
+    }
+
+    public List<State> getAll() {
+//        return stateRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return stateRepository.findAllByOrderById();
+    }
+
+    public State getByName(String name) {
+        Optional<State> optional = Optional.ofNullable(stateRepository.findByName(name));
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        throw new EntityNotFoundException("State with name '" + name + "' not found");
+    }
 }
