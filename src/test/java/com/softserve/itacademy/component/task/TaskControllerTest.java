@@ -4,6 +4,7 @@ import com.softserve.itacademy.component.state.State;
 import com.softserve.itacademy.component.state.StateService;
 import com.softserve.itacademy.component.todo.ToDo;
 import com.softserve.itacademy.component.todo.ToDoService;
+import com.softserve.itacademy.component.user.UserRole;
 import com.softserve.itacademy.config.SpringSecurityTestConfiguration;
 import com.softserve.itacademy.config.WithMockCustomUser;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ public class TaskControllerTest {
     private MockMvc mvc;
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testCreateGetMethod() throws Exception {
 
         ToDo todo = new ToDo();
@@ -65,7 +66,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testCorrectCreatePostMethod() throws Exception {
 
         ToDo todo = new ToDo();
@@ -92,7 +93,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testErrorCreatePostMethod() throws Exception {
 
         ToDo todo = new ToDo();
@@ -123,7 +124,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testUpdateGetMethod() throws Exception {
 
         ToDo todo = new ToDo();
@@ -161,7 +162,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testCorrectUpdatePostMethod() throws Exception {
 
         when(todoService.readById(anyLong())).thenReturn(new ToDo());
@@ -189,7 +190,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testErrorUpdatePostMethod() throws Exception {
 
         TaskDto taskDto = new TaskDto(1, "", TaskPriority.LOW.name(), 1, 1);
@@ -219,7 +220,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    @WithMockCustomUser(id = 1, email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(id = 1, email = "mike@mail.com", role = UserRole.ADMIN)
     public void testDeleteGetMethod() throws Exception {
 
         doNothing().when(taskService).delete(anyLong());

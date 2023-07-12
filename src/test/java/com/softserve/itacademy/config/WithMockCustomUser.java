@@ -1,5 +1,6 @@
 package com.softserve.itacademy.config;
 
+import com.softserve.itacademy.component.user.UserRole;
 import org.springframework.security.test.context.support.WithSecurityContext;
 
 import java.lang.annotation.Retention;
@@ -18,5 +19,5 @@ public @interface WithMockCustomUser {
 
     String password() default "";
 
-    String role() default "USER";
+    UserRole role() default UserRole.USER;
 }

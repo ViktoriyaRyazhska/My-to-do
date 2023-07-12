@@ -1,15 +1,8 @@
--- SET IDENTITY_INSERT roles ON
-
-INSERT INTO roles (id, name) VALUES (1, 'ADMIN');
-INSERT INTO roles (id, name) VALUES (2, 'USER');
-
--- SET IDENTITY_INSERT roles OFF
---
 -- SET IDENTITY_INSERT users ON
 
-INSERT INTO users (id, first_name, last_name, email, password, role_id) VALUES (5, 'Nick', 'Green', 'nick@mail.com', '{noop}2222', 2);
-INSERT INTO users (id, first_name, last_name, email, password, role_id) VALUES (6, 'Nora', 'White', 'nora@mail.com', '{noop}3333', 2);
-INSERT INTO users (id, first_name, last_name, email, password, role_id) VALUES (4, 'Mike', 'Brown', 'mike@mail.com', '{noop}1111', 1);
+INSERT INTO users (id, first_name, last_name, email, password, role) VALUES (5, 'Nick', 'Green', 'nick@mail.com', '{noop}2222', 'USER');
+INSERT INTO users (id, first_name, last_name, email, password, role) VALUES (6, 'Nora', 'White', 'nora@mail.com', '{noop}3333', 'USER');
+INSERT INTO users (id, first_name, last_name, email, password, role) VALUES (4, 'Mike', 'Brown', 'mike@mail.com', '{noop}1111', 'ADMIN');
 
 -- SET IDENTITY_INSERT users OFF
 --

@@ -1,11 +1,8 @@
 package com.softserve.itacademy.config;
 
 import com.softserve.itacademy.component.user.UserService;
-import com.softserve.itacademy.component.user.UserServiceTest;
-import com.softserve.itacademy.component.userrole.Role;
 import com.softserve.itacademy.component.user.User;
 import com.softserve.itacademy.config.security.WebAuthenticationToken;
-import jakarta.inject.Inject;
 import org.mockito.MockingDetails;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +18,13 @@ public class CustomUserSecurityContextFactory implements WithSecurityContextFact
     
     @Override
     public SecurityContext createSecurityContext(WithMockCustomUser customUser) {
-        Role role = new Role();
-        role.setName(customUser.role());
-
         User user = new User();
         user.setId(customUser.id());
         user.setFirstName(customUser.firstName());
         user.setLastName(customUser.lastName());
         user.setEmail(customUser.email());
         user.setPassword(customUser.password());
-        user.setRole(role);
+        user.setRole(customUser.role());
         
         if (userService != null) {
             MockingDetails mockingDetails = Mockito.mockingDetails(userService);

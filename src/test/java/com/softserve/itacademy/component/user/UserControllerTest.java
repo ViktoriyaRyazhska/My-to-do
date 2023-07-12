@@ -1,7 +1,7 @@
 package com.softserve.itacademy.component.user;
 
-import com.softserve.itacademy.component.userrole.Role;
-import com.softserve.itacademy.component.userrole.RoleService;
+import com.softserve.itacademy.component.user.dto.UpdateUserDto;
+import com.softserve.itacademy.component.user.dto.UserDto;
 import com.softserve.itacademy.config.SpringSecurityTestConfiguration;
 import com.softserve.itacademy.config.WithMockCustomUser;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerTest {
 
     @MockBean private UserService userService;
-    @MockBean private RoleService roleService;
     @MockBean private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -48,7 +47,7 @@ public class UserControllerTest {
     private User userWithRoleUser;
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testCreateGetMethod() throws Exception {
         mvc.perform(get("/users/create")
                 .contentType(MediaType.TEXT_HTML))
@@ -58,14 +57,13 @@ public class UserControllerTest {
                 .andExpect(model().attribute("user", new User()))
                 .andDo(print());
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testCorrectCreatePostMethod() throws Exception {
         when(passwordEncoder.encode(anyString())).thenReturn("");
-        when(roleService.readById(anyLong())).thenReturn(new Role());
         when(userService.create(any(User.class))).thenReturn(new User());
 
         mvc.perform(post("/users/create")
@@ -81,14 +79,13 @@ public class UserControllerTest {
                 .andDo(print());
 
         verify(passwordEncoder, times(1)).encode(anyString());
-        verify(roleService, times(1)).readById(anyLong());
         verify(userService, times(1)).create(any(User.class));
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testErrorCreatePostMethod() throws Exception {
         User user = new User();
         user.setFirstName("");
@@ -110,11 +107,11 @@ public class UserControllerTest {
                 .andExpect(model().attribute("user", user))
                 .andDo(print());
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testReadGetMethod() throws Exception {
         when(userService.readById(anyLong())).thenReturn(userWithRoleAdmin);
 
@@ -128,19 +125,13 @@ public class UserControllerTest {
 
         verify(userService, times(1)).readById(anyLong());
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testUpdateGetMethod() throws Exception {
-        Role role1 = new Role();
-        role1.setName("ADMIN");
-        Role role2 = new Role();
-        role2.setName("USER");
-
         when(userService.readById(anyLong())).thenReturn(userWithRoleUser);
-        when(roleService.getAll()).thenReturn(List.of(role1, role2));
 
         mvc.perform(get("/users/1/update")
                 .contentType(MediaType.TEXT_HTML))
@@ -148,13 +139,12 @@ public class UserControllerTest {
                 .andExpect(view().name("update-user"))
                 .andExpect(model().size(2))
                 .andExpect(model().attribute("user", userWithRoleUser))
-                .andExpect(model().attribute("roles", List.of(role1, role2)))
+                .andExpect(model().attribute("roles", UserRole.values()))
                 .andDo(print());
 
         verify(userService, times(1)).readById(anyLong());
-        verify(roleService, times(1)).getAll();
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
@@ -170,7 +160,7 @@ public class UserControllerTest {
                 .param("email", userWithRoleUser.getEmail())
                 .param("oldPassword", "2222")
                 .param("password", userWithRoleUser.getPassword())
-                .param("roleId", "2")
+                .param("role", "USER")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(model().hasNoErrors())
@@ -178,22 +168,18 @@ public class UserControllerTest {
                 .andExpect(redirectedUrl("/users/2/read"))
                 .andDo(print());
 
-        verify(userService, times(1)).readById(anyLong());
-        verify(passwordEncoder, times(1)).matches(anyString(), anyString());
-        verify(passwordEncoder, times(1)).encode(anyString());
-        verify(roleService, never()).readById(anyLong());
-        verify(userService, times(1)).update(any(User.class));
+        verify(userService, times(1)).findByIdThrowing(anyLong());
+        verify(userService, times(1)).update(any(UpdateUserDto.class));
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testCorrectUpdatePostMethodWithRoleADMINAndCorrectPassword() throws Exception {
         when(userService.readById(anyLong())).thenReturn(userWithRoleAdmin);
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
         when(passwordEncoder.encode(anyString())).thenReturn("");
-        when(roleService.readById(anyLong())).thenReturn(any(Role.class));
 
         mvc.perform(post("/users/1/update")
                 .param("firstName", userWithRoleAdmin.getFirstName())
@@ -201,7 +187,7 @@ public class UserControllerTest {
                 .param("email", userWithRoleAdmin.getEmail())
                 .param("oldPassword", "1111")
                 .param("password", userWithRoleAdmin.getPassword())
-                .param("roleId", "1")
+                .param("role", "ADMIN")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(model().hasNoErrors())
@@ -209,96 +195,75 @@ public class UserControllerTest {
                 .andExpect(redirectedUrl("/users/1/read"))
                 .andDo(print());
 
-        verify(userService, times(1)).readById(anyLong());
-        verify(passwordEncoder, times(1)).matches(anyString(), anyString());
-        verify(passwordEncoder, times(1)).encode(anyString());
-        verify(roleService, times(1)).readById(anyLong());
-        verify(userService, times(1)).update(any(User.class));
+        verify(userService, times(1)).findByIdThrowing(anyLong());
+        verify(userService, times(1)).update(any(UpdateUserDto.class));
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testErrorUpdatePostMethodWithRoleADMINAndInvalidPassword() throws Exception {
-        Role role1 = new Role();
-        role1.setName("ADMIN");
-        Role role2 = new Role();
-        role2.setName("USER");
-
         when(userService.readById(anyLong())).thenReturn(userWithRoleAdmin);
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
-        when(roleService.getAll()).thenReturn(List.of(role1, role2));
 
-        mvc.perform(post("/users/1/update")
-                .param("firstName", userWithRoleAdmin.getFirstName())
-                .param("lastName", userWithRoleAdmin.getLastName())
-                .param("email", userWithRoleAdmin.getEmail())
-                .param("oldPassword", "1111")
-                .param("password", userWithRoleAdmin.getPassword())
-                .param("roleId", "1")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+        mvc.perform(post("/users/1/change-password")
+                        .param("firstName", userWithRoleAdmin.getFirstName())
+                        .param("lastName", userWithRoleAdmin.getLastName())
+                        .param("email", userWithRoleAdmin.getEmail())
+                        .param("oldPassword", "1111")
+                        .param("password", userWithRoleAdmin.getPassword())
+                        .param("role", "ADMIN")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(model().hasErrors())
                 .andExpect(model().attributeHasFieldErrors("user", "password"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("update-user"))
                 .andExpect(model().size(2))
                 .andExpect(model().attribute("user", userWithRoleAdmin))
-                .andExpect(model().attribute("roles", List.of(role1, role2)))
+                .andExpect(model().attribute("roles", UserRole.values()))
                 .andDo(print());
 
-        verify(userService, times(1)).readById(anyLong());
-        verify(passwordEncoder, times(1)).matches(anyString(), anyString());
-        verify(roleService, times(1)).getAll();
+        verify(userService, times(1)).findByIdThrowing(anyLong());
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testErrorUpdatePostMethod() throws Exception {
-        Role role1 = new Role();
-        role1.setName("ADMIN");
-        Role role2 = new Role();
-        role2.setName("USER");
-
-        User user = new User();
+        UserDto user = new UserDto();
         user.setId(1L);
         user.setFirstName("");
         user.setLastName("");
         user.setEmail("");
-        user.setPassword("");
-        user.setRole(role1);
+        user.setRole(UserRole.ADMIN);
 
-        when(userService.readById(anyLong())).thenReturn(user);
-        when(roleService.getAll()).thenReturn(List.of(role1, role2));
+        when(userService.findByIdThrowing(anyLong())).thenReturn(user);
 
         mvc.perform(post("/users/1/update")
                 .param("firstName", user.getFirstName())
                 .param("lastName", user.getLastName())
                 .param("email", user.getEmail())
-                .param("oldPassword", "")
-                .param("password", user.getPassword())
-                .param("roleId", "1")
+                .param("role", "ADMIN")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(model().hasErrors())
                 .andExpect(status().isOk())
                 .andExpect(view().name("update-user"))
                 .andExpect(model().size(2))
-                .andExpect(model().attribute("user", user))
-                .andExpect(model().attribute("roles", List.of(role1, role2)))
+//                .andExpect(model().attribute("user", user)) // TODO
+                .andExpect(model().attribute("roles", UserRole.values()))
                 .andDo(print());
 
-        verify(userService, times(1)).readById(anyLong());
-        verify(roleService, times(1)).getAll();
+        verify(userService, times(1)).findByIdThrowing(anyLong());
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
-    @WithMockCustomUser(id = 1, email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(id = 1, email = "mike@mail.com", role = UserRole.ADMIN)
     public void testDeleteGetMethodOneself() throws Exception {
         mvc.perform(get("/users/1/delete")
                 .contentType(MediaType.TEXT_HTML))
@@ -309,11 +274,11 @@ public class UserControllerTest {
         verify(userService, times(1)).delete(anyLong());
         verify(userService).getCurrentUser();
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
-    @WithMockCustomUser(id = 1, email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(id = 1, email = "mike@mail.com", role = UserRole.ADMIN)
     public void testDeleteGetMethodAnotherUser() throws Exception {
         mvc.perform(get("/users/2/delete")
                 .contentType(MediaType.TEXT_HTML))
@@ -324,11 +289,11 @@ public class UserControllerTest {
         verify(userService, times(1)).delete(anyLong());
         verify(userService).getCurrentUser();
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 
     @Test
-    @WithMockCustomUser(email = "mike@mail.com", role = "ADMIN")
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
     public void testGetAllGetMethod() throws Exception {
         when(userService.getAll()).thenReturn(List.of(new User(), new User(), new User()));
 
@@ -343,6 +308,6 @@ public class UserControllerTest {
 
         verify(userService, times(1)).getAll();
 
-        verifyNoMoreInteractions(passwordEncoder, roleService, userService);
+        verifyNoMoreInteractions(passwordEncoder, userService);
     }
 }

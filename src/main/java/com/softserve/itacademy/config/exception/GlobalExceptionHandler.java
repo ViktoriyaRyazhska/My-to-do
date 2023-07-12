@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     }
 
     private ModelAndView getModelAndView(HttpServletRequest request, HttpStatus httpStatus, Exception exception) {
-        log.error("Exception raised = {} :: URL = {}", exception.getMessage(), request.getRequestURL());
+        log.error("Exception raised = {} :: URL = {}", exception.getMessage(), request.getRequestURL(), exception);
         ModelAndView modelAndView = new ModelAndView("error");
         modelAndView.addObject("code", httpStatus.value() + " / " + httpStatus.getReasonPhrase());
         modelAndView.addObject("message", exception.getMessage());
