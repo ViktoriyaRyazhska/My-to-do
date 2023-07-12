@@ -11,6 +11,9 @@ import java.sql.SQLException;
 @Profile("h2")
 public class H2Config {
 
+    /**
+     * TCP server which allows to connect to the H2 database using IntelliJ IDEA
+     */
     @Bean(initMethod = "start", destroyMethod = "stop")
     public Server startTcpServer() throws SQLException {
         return Server.createTcpServer("-tcp", "-tcpPort", "9093");

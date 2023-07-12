@@ -1,5 +1,6 @@
 package com.softserve.itacademy.component.user;
 
+import com.softserve.itacademy.component.user.dto.CreateUserDto;
 import com.softserve.itacademy.component.user.dto.UpdateUserDto;
 import com.softserve.itacademy.component.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') or isAnonymous()")
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new CreateUserDto());
         return "create-user";
     }
 

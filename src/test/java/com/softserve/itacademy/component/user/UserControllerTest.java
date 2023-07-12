@@ -1,5 +1,6 @@
 package com.softserve.itacademy.component.user;
 
+import com.softserve.itacademy.component.user.dto.CreateUserDto;
 import com.softserve.itacademy.component.user.dto.UpdateUserDto;
 import com.softserve.itacademy.component.user.dto.UserDto;
 import com.softserve.itacademy.config.SpringSecurityTestConfiguration;
@@ -12,7 +13,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,7 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = { UserController.class, SpringSecurityTestConfiguration.class })
+@ContextConfiguration(classes = {UserController.class, SpringSecurityTestConfiguration.class})
+@EnableMethodSecurity
 public class UserControllerTest {
 
     @MockBean private UserService userService;
@@ -48,16 +53,30 @@ public class UserControllerTest {
 
     @Test
     @WithMockCustomUser(email = "mike@mail.com", role = UserRole.ADMIN)
-    public void testCreateGetMethod() throws Exception {
+    public void shouldDisplayUserCreationForm() throws Exception {
         mvc.perform(get("/users/create")
-                .contentType(MediaType.TEXT_HTML))
+                        .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-user"))
                 .andExpect(model().size(1))
-                .andExpect(model().attribute("user", new User()))
+                .andExpect(model().attribute("user", new CreateUserDto()))
                 .andDo(print());
 
-        verifyNoMoreInteractions(passwordEncoder, userService);
+        verifyNoInteractions(passwordEncoder, userService);
+    }
+
+    @Test
+    @WithMockCustomUser(email = "mike@mail.com", role = UserRole.USER)
+    public void shouldNotDisplayUserCreationForm() throws Exception {
+        mvc.perform(get("/users/create")
+                        .contentType(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(view().name("create-user"))
+                .andExpect(model().size(1))
+                .andExpect(model().attribute("user", new CreateUserDto()))
+                .andDo(print());
+
+        verifyNoInteractions(passwordEncoder, userService);
     }
 
     @Test
@@ -67,12 +86,12 @@ public class UserControllerTest {
         when(userService.create(any(User.class))).thenReturn(new User());
 
         mvc.perform(post("/users/create")
-                .param("firstName", userWithRoleAdmin.getFirstName())
-                .param("lastName", userWithRoleAdmin.getLastName())
-                .param("email", userWithRoleAdmin.getEmail())
-                .param("password", userWithRoleAdmin.getPassword())
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .param("firstName", userWithRoleAdmin.getFirstName())
+                        .param("lastName", userWithRoleAdmin.getLastName())
+                        .param("email", userWithRoleAdmin.getEmail())
+                        .param("password", userWithRoleAdmin.getPassword())
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(model().hasNoErrors())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/todos/all/users/0"))
@@ -94,12 +113,12 @@ public class UserControllerTest {
         user.setPassword("");
 
         mvc.perform(post("/users/create")
-                .param("firstName", user.getFirstName())
-                .param("lastName", user.getLastName())
-                .param("email", user.getEmail())
-                .param("password", user.getPassword())
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .param("firstName", user.getFirstName())
+                        .param("lastName", user.getLastName())
+                        .param("email", user.getEmail())
+                        .param("password", user.getPassword())
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(model().hasErrors())
                 .andExpect(status().isOk())
                 .andExpect(view().name("create-user"))
@@ -116,7 +135,7 @@ public class UserControllerTest {
         when(userService.readById(anyLong())).thenReturn(userWithRoleAdmin);
 
         mvc.perform(get("/users/1/read")
-                .contentType(MediaType.TEXT_HTML))
+                        .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user-info"))
                 .andExpect(model().size(1))
@@ -134,7 +153,7 @@ public class UserControllerTest {
         when(userService.readById(anyLong())).thenReturn(userWithRoleUser);
 
         mvc.perform(get("/users/1/update")
-                .contentType(MediaType.TEXT_HTML))
+                        .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(view().name("update-user"))
                 .andExpect(model().size(2))
@@ -155,14 +174,14 @@ public class UserControllerTest {
         when(passwordEncoder.encode(anyString())).thenReturn("");
 
         mvc.perform(post("/users/2/update")
-                .param("firstName", userWithRoleUser.getFirstName())
-                .param("lastName", userWithRoleUser.getLastName())
-                .param("email", userWithRoleUser.getEmail())
-                .param("oldPassword", "2222")
-                .param("password", userWithRoleUser.getPassword())
-                .param("role", "USER")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .param("firstName", userWithRoleUser.getFirstName())
+                        .param("lastName", userWithRoleUser.getLastName())
+                        .param("email", userWithRoleUser.getEmail())
+                        .param("oldPassword", "2222")
+                        .param("password", userWithRoleUser.getPassword())
+                        .param("role", "USER")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(model().hasNoErrors())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/users/2/read"))
@@ -182,14 +201,14 @@ public class UserControllerTest {
         when(passwordEncoder.encode(anyString())).thenReturn("");
 
         mvc.perform(post("/users/1/update")
-                .param("firstName", userWithRoleAdmin.getFirstName())
-                .param("lastName", userWithRoleAdmin.getLastName())
-                .param("email", userWithRoleAdmin.getEmail())
-                .param("oldPassword", "1111")
-                .param("password", userWithRoleAdmin.getPassword())
-                .param("role", "ADMIN")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .param("firstName", userWithRoleAdmin.getFirstName())
+                        .param("lastName", userWithRoleAdmin.getLastName())
+                        .param("email", userWithRoleAdmin.getEmail())
+                        .param("oldPassword", "1111")
+                        .param("password", userWithRoleAdmin.getPassword())
+                        .param("role", "ADMIN")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(model().hasNoErrors())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/users/1/read"))
@@ -243,12 +262,12 @@ public class UserControllerTest {
         when(userService.findByIdThrowing(anyLong())).thenReturn(user);
 
         mvc.perform(post("/users/1/update")
-                .param("firstName", user.getFirstName())
-                .param("lastName", user.getLastName())
-                .param("email", user.getEmail())
-                .param("role", "ADMIN")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .param("firstName", user.getFirstName())
+                        .param("lastName", user.getLastName())
+                        .param("email", user.getEmail())
+                        .param("role", "ADMIN")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(model().hasErrors())
                 .andExpect(status().isOk())
                 .andExpect(view().name("update-user"))
@@ -266,7 +285,7 @@ public class UserControllerTest {
     @WithMockCustomUser(id = 1, email = "mike@mail.com", role = UserRole.ADMIN)
     public void testDeleteGetMethodOneself() throws Exception {
         mvc.perform(get("/users/1/delete")
-                .contentType(MediaType.TEXT_HTML))
+                        .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/login"))
                 .andDo(print());
@@ -281,7 +300,7 @@ public class UserControllerTest {
     @WithMockCustomUser(id = 1, email = "mike@mail.com", role = UserRole.ADMIN)
     public void testDeleteGetMethodAnotherUser() throws Exception {
         mvc.perform(get("/users/2/delete")
-                .contentType(MediaType.TEXT_HTML))
+                        .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/users/all"))
                 .andDo(print());
@@ -298,7 +317,7 @@ public class UserControllerTest {
         when(userService.getAll()).thenReturn(List.of(new User(), new User(), new User()));
 
         mvc.perform(get("/users/all")
-                .contentType(MediaType.TEXT_HTML))
+                        .contentType(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(view().name("users-list"))
                 .andExpect(model().size(1))

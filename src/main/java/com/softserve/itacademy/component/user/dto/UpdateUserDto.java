@@ -5,6 +5,8 @@ import com.softserve.itacademy.component.user.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
