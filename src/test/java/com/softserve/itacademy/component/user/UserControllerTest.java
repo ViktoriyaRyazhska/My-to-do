@@ -13,10 +13,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -70,10 +68,7 @@ public class UserControllerTest {
     public void shouldNotDisplayUserCreationForm() throws Exception {
         mvc.perform(get("/users/create")
                         .contentType(MediaType.TEXT_HTML))
-                .andExpect(status().isOk())
-                .andExpect(view().name("create-user"))
-                .andExpect(model().size(1))
-                .andExpect(model().attribute("user", new CreateUserDto()))
+                .andExpect(status().is3xxRedirection())
                 .andDo(print());
 
         verifyNoInteractions(passwordEncoder, userService);

@@ -15,6 +15,9 @@
                 <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                     <a class="nav-link" th:href="@{/users/all}">List of Users</a>
                 </li>
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link" th:href="@{/states}">Manage States</a>
+                </li>
             </ul>
             <span class="navbar-text" sec:authorize="isAuthenticated()">
                 Hello <a th:href="@{|/users/${#authentication.details.id}/read|}"

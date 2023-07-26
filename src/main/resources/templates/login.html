@@ -13,7 +13,7 @@
     <p th:if="${param.logout}" class="alert alert-success mt-4">Successfully logged out</p>
 
     <h2>Log in</h2>
-    <p th:if="${param.error}">Username or password is not correct!</p>
+    <p th:if="${param.error}" class="alert alert-danger">Username or password is not correct!</p>
 
     <form th:action="@{/login}" method="POST">
         <div class="mb-3">

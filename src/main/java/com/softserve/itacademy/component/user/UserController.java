@@ -42,7 +42,7 @@ public class UserController {
         return "redirect:/todos/all/users/" + newUser.getId();
     }
 
-    @PreAuthorize("authentication.details.id == #id")
+    @PreAuthorize("hasAuthority('ADMIN') or authentication.details.id == #id")
     @GetMapping("/{id}/read")
     public String read(@PathVariable long id, Model model) {
         User user = userService.readById(id);
@@ -50,7 +50,7 @@ public class UserController {
         return "user-info";
     }
 
-    @PreAuthorize("authentication.details.id == #id")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
     @GetMapping("/{id}/update")
     public String update(@PathVariable long id, Model model) {
         User user = userService.readById(id);
@@ -105,7 +105,7 @@ public class UserController {
 //        return "redirect:/users/" + id + "/read";
     }
 
-    @PreAuthorize("authentication.details.id == #id")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id) {
         User currentUser = userService.getCurrentUser();

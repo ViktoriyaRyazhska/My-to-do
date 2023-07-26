@@ -8,7 +8,9 @@ spring:
           import_files_sql_extractor: org.hibernate.tool.schema.internal.script.MultiLineSqlScriptExtractor
 server.port: 8080
 
-
+token:
+  signing:
+    key: veryWellProtectedJwtSigningKey315553242142432531312
 
 #spring.datasource.platform: postgres
 #spring.datasource.url: jdbc:postgresql://localhost:5432/todolist

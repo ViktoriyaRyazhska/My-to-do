@@ -77,4 +77,8 @@ public class UserService {
     public UserDto findByIdThrowing(long id) {
         return userRepository.findById(id).map(userDtoConverter::toDto).orElseThrow(EntityNotFoundException::new);
     }
+
+    public List<UserDto> findAll() {
+        return userRepository.findAll().stream().map(userDtoConverter::toDto).toList();
+    }
 }

@@ -50,4 +50,17 @@ public class StateService {
         }
         throw new EntityNotFoundException("State with name '" + name + "' not found");
     }
+
+    public List<StateDto> findAll() {
+        return stateRepository.findAll()
+                .stream()
+                .map(this::toDto)
+                .toList();
+    }
+
+    private StateDto toDto(State state) {
+        return StateDto.builder()
+                .name(state.getName())
+                .build();
+    }
 }
