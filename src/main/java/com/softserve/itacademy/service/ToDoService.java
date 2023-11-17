@@ -1,6 +1,8 @@
-package com.softserve.itacademy.component.todo;
+package com.softserve.itacademy.service;
 
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import com.softserve.itacademy.model.ToDo;
+import com.softserve.itacademy.repository.ToDoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 

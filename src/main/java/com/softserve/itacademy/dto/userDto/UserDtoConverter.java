@@ -16,7 +16,7 @@ public class UserDtoConverter {
                 .build();
     }
 
-    public void fillFields(User user, com.softserve.itacademy.component.user.dto.UpdateUserDto updateUserDto) {
+    public void fillFields(User user, UpdateUserDto updateUserDto) {
         user.setFirstName(updateUserDto.getFirstName());
         user.setLastName(updateUserDto.getLastName());
         user.setEmail(updateUserDto.getEmail());

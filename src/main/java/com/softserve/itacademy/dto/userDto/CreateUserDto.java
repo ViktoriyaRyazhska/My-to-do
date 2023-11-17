@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CreateUserDto extends com.softserve.itacademy.component.user.dto.UpdateUserDto {
+public class CreateUserDto extends UpdateUserDto {
 
     @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}",
             message = "Must be minimum 6 characters, at least one letter and one number")

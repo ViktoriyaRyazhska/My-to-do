@@ -1,6 +1,6 @@
 package com.softserve.itacademy.service;
 
-import com.softserve.itacademy.component.user.dto.UpdateUserDto;
+import com.softserve.itacademy.dto.userDto.UpdateUserDto;
 import com.softserve.itacademy.model.UserRole;
 import com.softserve.itacademy.dto.userDto.UserDto;
 import com.softserve.itacademy.dto.userDto.UserDtoConverter;

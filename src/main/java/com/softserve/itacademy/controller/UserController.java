@@ -1,5 +1,6 @@
 package com.softserve.itacademy.controller;
 
+import com.softserve.itacademy.dto.userDto.UpdateUserDto;
 import com.softserve.itacademy.model.UserRole;
 import com.softserve.itacademy.service.UserService;
 import com.softserve.itacademy.dto.userDto.CreateUserDto;
@@ -62,7 +63,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') or authentication.details.id == #id")
     @PostMapping("/{id}/update")
     public String update(@PathVariable long id, Model model,
-                         @Validated @ModelAttribute("user") com.softserve.itacademy.component.user.dto.UpdateUserDto updateUserDto, BindingResult result) {
+                         @Validated @ModelAttribute("user") UpdateUserDto updateUserDto, BindingResult result) {
         UserDto oldUser = userService.findByIdThrowing(id);
 
         if (result.hasErrors()) {
