@@ -8,7 +8,9 @@ import com.softserve.itacademy.config.exception.NullEntityReferenceException;
 import com.softserve.itacademy.config.security.WebAuthenticationToken;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.repository.UserRepository;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
+    @Autowired
+    private EntityManager entityManager;
+
     private final UserRepository userRepository;
     private final UserDtoConverter userDtoConverter;
+
 
     public User create(User role) {
         if (role != null) {
@@ -84,4 +90,10 @@ public class UserService {
     public List<UserDto> findAll() {
         return userRepository.findAll().stream().map(userDtoConverter::toDto).toList();
     }
+
+    public User findUsersByName(String name) {
+        String query = "SELECT u FROM User u WHERE u.lastName = '" + name + "'";
+        return entityManager.createQuery(query, User.class).getSingleResult();
+    }
+
 }

@@ -51,10 +51,21 @@ public class UserController {
         return "user-info";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
+
+    //@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
     @GetMapping("/{id}/update")
     public String update(@PathVariable long id, Model model) {
         User user = userService.readById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("roles", UserRole.values());
+        return "update-user";
+    }
+
+    // @PreAuthorize("hasAuthority('ADMIN') or authentication.details.id == #id")
+    @GetMapping("/{name}/update_name")
+    public String updateByName(@PathVariable String name, Model model) {
+        User user = userService.findUsersByName(name);
+        System.out.println(user.getLastName());
         model.addAttribute("user", user);
         model.addAttribute("roles", UserRole.values());
         return "update-user";

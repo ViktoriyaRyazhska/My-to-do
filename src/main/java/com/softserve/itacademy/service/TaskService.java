@@ -24,6 +24,8 @@ public class TaskService {
     private final StateRepository stateRepository;
     private final TaskTransformer taskTransformer;
 
+
+
     public TaskDto create(TaskDto taskDto) {
         Task task = taskTransformer.fillEntityFields(
                 new Task(),
@@ -68,4 +70,6 @@ public class TaskService {
     public List<Task> getByTodoId(long todoId) {
         return taskRepository.getByTodoId(todoId);
     }
+
+
 }

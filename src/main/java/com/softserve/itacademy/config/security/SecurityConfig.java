@@ -1,6 +1,7 @@
 package com.softserve.itacademy.config.security;
 
 import com.softserve.itacademy.config.security.jwt.JwtAuthenticationFilter;
+import com.softserve.itacademy.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +14,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -30,6 +35,9 @@ public class SecurityConfig {
     @Autowired
     @Qualifier("handlerExceptionResolver")
     private HandlerExceptionResolver handlerExceptionResolver;
+
+    @Autowired
+    UserService userService;
 
     @Bean
     @Order(1)
@@ -88,12 +96,31 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())
-                .httpBasic(withDefaults());
+                .httpBasic(withDefaults())
+                .csrf(AbstractHttpConfigurer::disable);
 
 //        http.addFilter(new WebAuthenticationFilter(authenticationConfiguration.getAuthenticationManager()));
 //        http.userDetailsService(domainUserDetailsService);
 
         return http.build();
+    }
+
+    @Bean
+    UserDetailsService userDetailsService1() {
+        InMemoryUserDetailsManager userDetailsService = new InMemoryUserDetailsManager();
+        UserDetails user = User.withUsername("admin@mail.com").password("admin").authorities("ADMIN").build();
+
+        userDetailsService.createUser(user);
+        return userDetailsService;
+    }
+
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        UserDetails user = User.withUsername("admin@mail.com")
+                .password("admin")
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(user);
     }
 
 }
