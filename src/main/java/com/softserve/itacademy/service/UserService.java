@@ -84,4 +84,10 @@ public class UserService {
     public List<UserDto> findAll() {
         return userRepository.findAll().stream().map(userDtoConverter::toDto).toList();
     }
+
+    public List<User> findUsersByName(String name) {
+        String query = "SELECT u FROM User u WHERE u.lastName = '" + name + "'";
+        return entityManager.createQuery(query, User.class).getResultList();
+    }
+
 }
