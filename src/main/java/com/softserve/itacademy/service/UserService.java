@@ -8,7 +8,9 @@ import com.softserve.itacademy.config.exception.NullEntityReferenceException;
 import com.softserve.itacademy.config.security.WebAuthenticationToken;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.repository.UserRepository;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
+    @Autowired
+    private EntityManager entityManager;
 
     private final UserRepository userRepository;
     private final UserDtoConverter userDtoConverter;
