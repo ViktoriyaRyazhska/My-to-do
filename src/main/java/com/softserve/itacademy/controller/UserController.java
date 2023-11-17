@@ -51,7 +51,7 @@ public class UserController {
         return "user-info";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
+   // @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
     @GetMapping("/{id}/update")
     public String update(@PathVariable long id, Model model) {
         User user = userService.readById(id);
@@ -60,7 +60,7 @@ public class UserController {
         return "update-user";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or authentication.details.id == #id")
+    //@PreAuthorize("hasAuthority('ADMIN') or authentication.details.id == #id")
     @PostMapping("/{id}/update")
     public String update(@PathVariable long id, Model model,
                          @Validated @ModelAttribute("user") UpdateUserDto updateUserDto, BindingResult result) {
