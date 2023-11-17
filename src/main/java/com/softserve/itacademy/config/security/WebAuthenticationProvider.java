@@ -1,7 +1,7 @@
 package com.softserve.itacademy.config.security;
 
-import com.softserve.itacademy.component.user.UserService;
-import com.softserve.itacademy.component.user.User;
+import com.softserve.itacademy.service.UserService;
+import com.softserve.itacademy.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class WebAuthenticationProvider implements AuthenticationProvider {
 
     private PasswordEncoder passwordEncoder;
-    private UserService userService;
+    private final UserService userService;
 
     public WebAuthenticationProvider(UserService userService) {
         this.userService = userService;

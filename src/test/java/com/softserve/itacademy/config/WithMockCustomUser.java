@@ -1,6 +1,6 @@
 package com.softserve.itacademy.config;
 
-import com.softserve.itacademy.component.user.UserRole;
+import com.softserve.itacademy.model.UserRole;
 import org.springframework.security.test.context.support.WithSecurityContext;
 
 import java.lang.annotation.Retention;

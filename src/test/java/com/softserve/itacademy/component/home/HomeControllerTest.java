@@ -1,6 +1,6 @@
 package com.softserve.itacademy.component.home;
 
-import com.softserve.itacademy.component.user.UserRole;
+import com.softserve.itacademy.model.UserRole;
 import com.softserve.itacademy.config.WithMockCustomUser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,5 +1,8 @@
 package com.softserve.itacademy.component.state;
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import com.softserve.itacademy.model.State;
+import com.softserve.itacademy.repository.StateRepository;
+import com.softserve.itacademy.service.StateService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

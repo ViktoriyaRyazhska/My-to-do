@@ -7,19 +7,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -43,19 +42,19 @@ public class SecurityConfig {
         http
                 .securityMatcher("/api/**")
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/api/auth").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/api/auth").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
-                .httpBasic(Customizer.withDefaults());
+                .httpBasic(withDefaults());
 
         return http.build();
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    // @Bean
+    //public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 //        http.exceptionHandling(customizer -> customizer
 //                .authenticationEntryPoint(
@@ -67,17 +66,29 @@ public class SecurityConfig {
 //                )
 //        );
 
-        http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(HttpMethod.GET, "/img/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/").permitAll()
-                .requestMatchers(HttpMethod.GET, "/login").permitAll()
-                .requestMatchers("/users/create").permitAll()
-                .anyRequest().authenticated()
-        );
-
-//        http.formLogin(login ->
-//                login.loginPage("/login").permitAll()
+//        http.authorizeHttpRequests(authorize -> authorize
+//                .requestMatchers(HttpMethod.GET, "/img/**").permitAll()
+//                .requestMatchers(HttpMethod.GET, "/").permitAll()
+//                .requestMatchers(HttpMethod.GET, "/login").permitAll()
+//                .requestMatchers("/users/create").permitAll()
+//                .anyRequest().authenticated()
 //        );
+
+//
+//        http.addFilter(new WebAuthenticationFilter(authenticationConfiguration.getAuthenticationManager()));
+//        http.userDetailsService(domainUserDetailsService);
+
+//        return http.build();
+//    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().authenticated()
+                )
+                .formLogin(withDefaults())
+                .httpBasic(withDefaults());
 
 //        http.addFilter(new WebAuthenticationFilter(authenticationConfiguration.getAuthenticationManager()));
 //        http.userDetailsService(domainUserDetailsService);

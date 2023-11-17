@@ -1,7 +1,9 @@
 package com.softserve.itacademy.component.todo;
 
-import com.softserve.itacademy.component.user.User;
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import com.softserve.itacademy.model.ToDo;
+import com.softserve.itacademy.model.User;
+import com.softserve.itacademy.repository.ToDoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +27,7 @@ public class ToDoServiceTest {
     private ToDoRepository todoRepository;
 
     @InjectMocks
-    private ToDoService todoService;
+    private com.softserve.itacademy.service.ToDoService todoService;
 
     private ToDo expected;
 

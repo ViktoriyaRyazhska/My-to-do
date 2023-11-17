@@ -11,3 +11,4 @@ public class ToDoListApplication extends SpringBootServletInitializer {
         SpringApplication.run(ToDoListApplication.class, args);
     }
 }
+

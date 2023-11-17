@@ -1,12 +1,15 @@
 package com.softserve.itacademy.component.task;
 
-import com.softserve.itacademy.component.state.State;
-import com.softserve.itacademy.component.state.StateService;
-import com.softserve.itacademy.component.todo.ToDo;
-import com.softserve.itacademy.component.todo.ToDoService;
-import com.softserve.itacademy.component.user.UserRole;
+
+import com.softserve.itacademy.service.ToDoService;
 import com.softserve.itacademy.config.SpringSecurityTestConfiguration;
 import com.softserve.itacademy.config.WithMockCustomUser;
+import com.softserve.itacademy.controller.TaskController;
+import com.softserve.itacademy.dto.TaskDto;
+import com.softserve.itacademy.dto.TaskTransformer;
+import com.softserve.itacademy.model.*;
+import com.softserve.itacademy.service.StateService;
+import com.softserve.itacademy.service.TaskService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +41,7 @@ public class TaskControllerTest {
     @MockBean private TaskService taskService;
     @MockBean private ToDoService todoService;
     @MockBean private StateService stateService;
-    private TaskTransformer taskTransformer = new TaskTransformer();
+    private final TaskTransformer taskTransformer = new TaskTransformer();
 
     @Autowired
     private MockMvc mvc;

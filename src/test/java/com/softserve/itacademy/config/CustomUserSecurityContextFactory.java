@@ -1,7 +1,7 @@
 package com.softserve.itacademy.config;
 
-import com.softserve.itacademy.component.user.UserService;
-import com.softserve.itacademy.component.user.User;
+import com.softserve.itacademy.service.UserService;
+import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.config.security.WebAuthenticationToken;
 import org.mockito.MockingDetails;
 import org.mockito.Mockito;

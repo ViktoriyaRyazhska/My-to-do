@@ -1,6 +1,6 @@
 package com.softserve.itacademy.config.security;
 
-import com.softserve.itacademy.component.user.User;
+import com.softserve.itacademy.model.User;
 import lombok.Data;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

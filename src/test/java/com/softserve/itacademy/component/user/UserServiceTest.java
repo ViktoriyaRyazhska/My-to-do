@@ -1,9 +1,10 @@
 package com.softserve.itacademy.component.user;
 
-import com.softserve.itacademy.component.user.dto.UserDto;
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
+import com.softserve.itacademy.model.User;
+import com.softserve.itacademy.repository.UserRepository;
+import com.softserve.itacademy.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 import java.util.Optional;

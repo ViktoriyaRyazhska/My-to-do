@@ -1,9 +1,9 @@
 package com.softserve.itacademy.component.task;
 
-import com.softserve.itacademy.component.task.TaskRepository;
-import com.softserve.itacademy.component.todo.ToDoRepository;
-import com.softserve.itacademy.component.task.Task;
-import com.softserve.itacademy.component.todo.ToDo;
+import com.softserve.itacademy.model.Task;
+import com.softserve.itacademy.model.ToDo;
+import com.softserve.itacademy.repository.TaskRepository;
+import com.softserve.itacademy.repository.ToDoRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

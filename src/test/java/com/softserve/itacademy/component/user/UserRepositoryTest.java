@@ -1,6 +1,7 @@
 package com.softserve.itacademy.component.user;
 
-import org.assertj.core.api.Assertions;
+import com.softserve.itacademy.model.User;
+import com.softserve.itacademy.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -9,7 +10,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest
 public class UserRepositoryTest {
