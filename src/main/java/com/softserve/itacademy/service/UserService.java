@@ -91,9 +91,9 @@ public class UserService {
         return userRepository.findAll().stream().map(userDtoConverter::toDto).toList();
     }
 
-    public User findUsersByName(String name) {
+    public List<User> findUsersByName(String name) {
         String query = "SELECT u FROM User u WHERE u.lastName = '" + name + "'";
-        return entityManager.createQuery(query, User.class).getSingleResult();
+        return entityManager.createQuery(query, User.class).getResultList();
     }
 
 }

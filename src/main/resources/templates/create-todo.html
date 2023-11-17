@@ -5,10 +5,13 @@
       lang="en">
 <head>
     <meta charset="UTF-8">
+
     <title>Create new To-Do</title>
 </head>
 <body>
+
 <div layout:fragment="content" style="margin: 0 auto; width: max-content">
+
     <h2>Create new To-Do</h2>
     <form th:action="@{|/todos/create/users/${ownerId}|}" th:object="${todo}" method="post">
 
@@ -28,6 +31,8 @@
     </form>
     <br>
     <a th:href="@{|/todos/all/users/${ownerId}|}">Go to To-Do List</a>
+
 </div>
+
 </body>
 </html>

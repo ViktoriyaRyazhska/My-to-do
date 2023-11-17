@@ -51,6 +51,12 @@ public class UserController {
         return "user-info";
     }
 
+    @GetMapping("/{name}/read_by_name")
+    public String findByName(@PathVariable String name, Model model) {
+        model.addAttribute("users", userService.findUsersByName(name));
+        return "users-list";
+
+    }
 
     //@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
     @GetMapping("/{id}/update")
@@ -61,15 +67,6 @@ public class UserController {
         return "update-user";
     }
 
-    // @PreAuthorize("hasAuthority('ADMIN') or authentication.details.id == #id")
-    @GetMapping("/{name}/update_name")
-    public String updateByName(@PathVariable String name, Model model) {
-        User user = userService.findUsersByName(name);
-        System.out.println(user.getLastName());
-        model.addAttribute("user", user);
-        model.addAttribute("roles", UserRole.values());
-        return "update-user";
-    }
 
     @PreAuthorize("hasAuthority('ADMIN') or authentication.details.id == #id")
     @PostMapping("/{id}/update")
