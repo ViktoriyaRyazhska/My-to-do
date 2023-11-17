@@ -125,4 +125,11 @@ public class UserController {
         model.addAttribute("users", userService.getAll());
         return "users-list";
     }
+
+    @GetMapping("/{name}/read_by_name")
+    public String findByName(@PathVariable String name, Model model) {
+        model.addAttribute("users", userService.findUsersByName(name));
+        return "users-list";
+
+    }
 }
