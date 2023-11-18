@@ -43,7 +43,7 @@ public class UserController {
         return "redirect:/todos/all/users/" + newUser.getId();
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or authentication.details.id == #id")
+    //@PreAuthorize("hasAuthority('ADMIN') or authentication.details.id == #id")
     @GetMapping("/{id}/read")
     public String read(@PathVariable long id, Model model) {
         User user = userService.readById(id);
