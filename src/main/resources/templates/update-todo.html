@@ -25,7 +25,7 @@
                         <label for="title">Title:</label>
                     </td>
                     <td>
-                        <input type="text" th:field="*{title}" id="title" th:value="*{title}"/>
+                        <input type="text" th:field="*{title}" id="title" th:utext="*{title}"/>
                     </td>
                     <td>
                         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>

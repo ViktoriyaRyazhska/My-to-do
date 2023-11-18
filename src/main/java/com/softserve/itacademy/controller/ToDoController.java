@@ -77,7 +77,7 @@ public class ToDoController {
     @PreAuthorize("authentication.details.id == #ownerId")
     @PostMapping("/{todo_id}/update/users/{owner_id}")
     public String update(@PathVariable("todo_id") long todoId, @PathVariable("owner_id") long ownerId,
-                         @Validated @ModelAttribute("todo") ToDo todo, BindingResult result) {
+                         @Validated @ModelAttribute("todo") ToDo todo, BindingResult result, Model model) {
         if (result.hasErrors()) {
             todo.setOwner(userService.readById(ownerId));
             return "update-todo";
@@ -86,6 +86,7 @@ public class ToDoController {
         todo.setOwner(oldTodo.getOwner());
         todo.setCollaborators(oldTodo.getCollaborators());
         todoService.update(todo);
+        model.addAttribute(todo);
         return "redirect:/todos/all/users/" + ownerId;
     }
 
