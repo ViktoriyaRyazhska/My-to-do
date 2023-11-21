@@ -76,37 +76,8 @@ public class UserController {
         return "redirect:/users/" + id + "/read";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or authentication.details.id == #id")
-    @PostMapping("/{id}/change-password")
-    public String changePassword(@PathVariable long id, @RequestParam("oldPassword") String oldPassword,
-                         @RequestParam("role") UserRole userRole, Model model,
-                         @Validated @ModelAttribute("user") User user, BindingResult result) {
 
-        throw new RuntimeException("Not implemented");
-
-//        User oldUser = userService.readById(id);
-//        if (result.hasErrors()) {
-//            user.setRole(oldUser.getRole());
-//            model.addAttribute("roles", UserRole.values());
-//            return "update-user";
-//        }
-//        if (!passwordEncoder.matches(oldPassword, oldUser.getPassword())) {
-//            result.addError(new FieldError("user", "password", "Old password is not correct!"));
-//            user.setRole(oldUser.getRole());
-//            model.addAttribute("roles", UserRole.values());
-//            return "update-user";
-//        }
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        if (oldUser.getRole() == UserRole.USER) {
-//            user.setRole(oldUser.getRole());
-//        } else {
-//            user.setRole(userRole);
-//        }
-//        userService.update(user);
-//        return "redirect:/users/" + id + "/read";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER') and authentication.details.id == #id")
+    @PreAuthorize("hasAuthority('USER') or authentication.details.id == #id")
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id) {
         User currentUser = userService.getCurrentUser();
