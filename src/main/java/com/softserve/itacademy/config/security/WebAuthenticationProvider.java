@@ -1,7 +1,7 @@
 package com.softserve.itacademy.config.security;
 
-import com.softserve.itacademy.service.UserService;
 import com.softserve.itacademy.model.User;
+import com.softserve.itacademy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

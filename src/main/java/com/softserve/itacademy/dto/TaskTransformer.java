@@ -1,9 +1,9 @@
 package com.softserve.itacademy.dto;
 
 import com.softserve.itacademy.model.State;
-import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.model.TaskPriority;
+import com.softserve.itacademy.model.ToDo;
 import org.springframework.stereotype.Component;
 
 @Component

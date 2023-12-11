@@ -1,7 +1,7 @@
 package com.softserve.itacademy.controller;
 
-import com.softserve.itacademy.service.UserService;
 import com.softserve.itacademy.dto.userDto.UserDto;
+import com.softserve.itacademy.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;

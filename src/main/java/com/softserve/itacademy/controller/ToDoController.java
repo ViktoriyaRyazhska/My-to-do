@@ -1,12 +1,12 @@
 package com.softserve.itacademy.controller;
 
-import com.softserve.itacademy.model.ToDo;
-import com.softserve.itacademy.service.ToDoService;
+import com.softserve.itacademy.config.security.WebAuthenticationToken;
 import com.softserve.itacademy.model.Task;
+import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.service.TaskService;
+import com.softserve.itacademy.service.ToDoService;
 import com.softserve.itacademy.service.UserService;
-import com.softserve.itacademy.config.security.WebAuthenticationToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;

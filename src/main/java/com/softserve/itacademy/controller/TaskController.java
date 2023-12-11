@@ -1,11 +1,11 @@
 package com.softserve.itacademy.controller;
 
 import com.softserve.itacademy.dto.TaskDto;
-import com.softserve.itacademy.model.TaskPriority;
-import com.softserve.itacademy.service.TaskService;
 import com.softserve.itacademy.dto.TaskTransformer;
 import com.softserve.itacademy.model.Task;
+import com.softserve.itacademy.model.TaskPriority;
 import com.softserve.itacademy.service.StateService;
+import com.softserve.itacademy.service.TaskService;
 import com.softserve.itacademy.service.ToDoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,10 +1,10 @@
 package com.softserve.itacademy.component.user;
 
+import com.softserve.itacademy.config.SpringSecurityTestConfiguration;
+import com.softserve.itacademy.config.WithMockCustomUser;
 import com.softserve.itacademy.controller.UserController;
 import com.softserve.itacademy.dto.userDto.CreateUserDto;
 import com.softserve.itacademy.dto.userDto.UserDto;
-import com.softserve.itacademy.config.SpringSecurityTestConfiguration;
-import com.softserve.itacademy.config.WithMockCustomUser;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.model.UserRole;
 import com.softserve.itacademy.service.UserService;

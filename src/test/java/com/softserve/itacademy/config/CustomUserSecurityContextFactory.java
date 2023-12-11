@@ -1,8 +1,8 @@
 package com.softserve.itacademy.config;
 
-import com.softserve.itacademy.service.UserService;
-import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.config.security.WebAuthenticationToken;
+import com.softserve.itacademy.model.User;
+import com.softserve.itacademy.service.UserService;
 import org.mockito.MockingDetails;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

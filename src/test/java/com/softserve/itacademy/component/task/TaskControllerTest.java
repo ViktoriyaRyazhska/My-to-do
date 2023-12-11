@@ -1,7 +1,6 @@
 package com.softserve.itacademy.component.task;
 
 
-import com.softserve.itacademy.service.ToDoService;
 import com.softserve.itacademy.config.SpringSecurityTestConfiguration;
 import com.softserve.itacademy.config.WithMockCustomUser;
 import com.softserve.itacademy.controller.TaskController;
@@ -10,6 +9,7 @@ import com.softserve.itacademy.dto.TaskTransformer;
 import com.softserve.itacademy.model.*;
 import com.softserve.itacademy.service.StateService;
 import com.softserve.itacademy.service.TaskService;
+import com.softserve.itacademy.service.ToDoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

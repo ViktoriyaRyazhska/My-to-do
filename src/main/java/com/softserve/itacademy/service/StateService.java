@@ -1,8 +1,8 @@
 package com.softserve.itacademy.service;
 
-import com.softserve.itacademy.model.State;
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
 import com.softserve.itacademy.dto.StateDto;
+import com.softserve.itacademy.model.State;
 import com.softserve.itacademy.repository.StateRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

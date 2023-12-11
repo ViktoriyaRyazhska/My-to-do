@@ -1,11 +1,11 @@
 package com.softserve.itacademy.controller;
 
-import com.softserve.itacademy.dto.userDto.UpdateUserDto;
-import com.softserve.itacademy.model.UserRole;
-import com.softserve.itacademy.service.UserService;
 import com.softserve.itacademy.dto.userDto.CreateUserDto;
+import com.softserve.itacademy.dto.userDto.UpdateUserDto;
 import com.softserve.itacademy.dto.userDto.UserDto;
 import com.softserve.itacademy.model.User;
+import com.softserve.itacademy.model.UserRole;
+import com.softserve.itacademy.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;

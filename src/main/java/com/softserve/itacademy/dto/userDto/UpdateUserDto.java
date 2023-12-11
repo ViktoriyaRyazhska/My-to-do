@@ -1,7 +1,8 @@
 package com.softserve.itacademy.dto.userDto;
 
 import com.softserve.itacademy.model.UserRole;
-import jakarta.persistence.*;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 

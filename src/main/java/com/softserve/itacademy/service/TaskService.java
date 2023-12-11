@@ -1,12 +1,12 @@
 package com.softserve.itacademy.service;
 
-import com.softserve.itacademy.dto.TaskTransformer;
+import com.softserve.itacademy.config.exception.NullEntityReferenceException;
 import com.softserve.itacademy.dto.TaskDto;
+import com.softserve.itacademy.dto.TaskTransformer;
 import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.repository.StateRepository;
-import com.softserve.itacademy.repository.ToDoRepository;
-import com.softserve.itacademy.config.exception.NullEntityReferenceException;
 import com.softserve.itacademy.repository.TaskRepository;
+import com.softserve.itacademy.repository.ToDoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
