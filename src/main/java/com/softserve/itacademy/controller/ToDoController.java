@@ -66,6 +66,7 @@ public class ToDoController {
         return "read-todo";
     }
 
+
     @PreAuthorize("authentication.details.id == #ownerId")
     @GetMapping("/{todo_id}/update/users/{owner_id}")
     public String update(@PathVariable("todo_id") long todoId, @PathVariable("owner_id") long ownerId, Model model) {
