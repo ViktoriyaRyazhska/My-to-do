@@ -20,41 +20,41 @@ public class WebAuthentication implements Authentication {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getAuthorities();
+        return null;
     }
 
     @Override
     public Object getCredentials() {
-        return user.getPassword();
+        return null;
     }
 
     @Override
     public Object getDetails() {
-        return user;
+        return null;
     }
 
     public User getUser() {
-        return user;
+        return null;
     }
 
     @Override
     public Object getPrincipal() {
-        return user.getUsername();
+        return null;
     }
 
     @Override
     public boolean isAuthenticated() {
-        return isAuthenticated;
+        return true;
     }
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-        this.isAuthenticated = isAuthenticated;
+        //TODO
     }
 
     @Override
     public String getName() {
-        return user.getUsername();
+        return null;
     }
 
 }

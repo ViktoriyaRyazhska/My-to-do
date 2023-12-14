@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="en"
       layout:decorate="~{layouts/template}"
-      lang="en">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout
+http://www.ultraq.net.nz/thymeleaf/layout ">
 <head>
     <meta charset="UTF-8">
     <title>Read existing To-Do</title>
@@ -62,16 +64,13 @@
                 <a th:href="@{|/users/${collaborator.id}/read|}"
                    th:text="${collaborator.firstName + ' ' + collaborator.lastName}"/>
             </td>
-            <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')
-                                    or #authorization.expression('hasAuthority(''USER'')') and #authentication.details.id == todo.owner.id}">
+            <td>
                 <a th:href="@{/todos/{id}/remove(id = ${todo.id}, user_id = ${collaborator.id})}">Remove</a>
             </td>
         </tr>
     </table>
 
-    <div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')
-                    or #authorization.expression('hasAuthority(''USER'')') and #authentication.details.id == todo.owner.id}">
-
+    <div>
         <label for="users">Add new collaborator</label>
 
         <form th:action="@{/todos/{id}/add(id = ${todo.id})}" method="get" class="row">
@@ -90,9 +89,8 @@
     </div>
 
     <br>
-    <span class="mt-4" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')
-                or #authorization.expression('hasAuthority(''USER'')') and #authentication.details.id == todo.owner.id}">
-            <a th:href="@{|/todos/all/users/${todo.owner.id}|}">Go to To-Do List</a>
+    <span class="mt-4">
+        <a th:href="@{|/todos/all/users/${todo.owner.id}|}">Go to To-Do List</a>
         </span>
 </div>
 </body>
