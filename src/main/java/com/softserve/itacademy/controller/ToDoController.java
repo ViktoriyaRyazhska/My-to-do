@@ -1,6 +1,6 @@
 package com.softserve.itacademy.controller;
 
-import com.softserve.itacademy.config.security.WebAuthenticationToken;
+import com.softserve.itacademy.config.security.WebAuthentication;
 import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.model.User;
@@ -129,8 +129,8 @@ public class ToDoController {
     }
 
     public boolean canReadToDo(long todoId) {
-        WebAuthenticationToken authentication
-                = (WebAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        WebAuthentication authentication
+                = (WebAuthentication) SecurityContextHolder.getContext().getAuthentication();
         User user = authentication.getUser();
         ToDo todo = todoService.readById(todoId);
         boolean isCollaborator = todo.getCollaborators().stream().anyMatch((collaborator)

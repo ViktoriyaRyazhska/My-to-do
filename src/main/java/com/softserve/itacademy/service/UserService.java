@@ -1,7 +1,7 @@
 package com.softserve.itacademy.service;
 
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
-import com.softserve.itacademy.config.security.WebAuthenticationToken;
+import com.softserve.itacademy.config.security.WebAuthentication;
 import com.softserve.itacademy.dto.userDto.UpdateUserDto;
 import com.softserve.itacademy.dto.userDto.UserDto;
 import com.softserve.itacademy.dto.userDto.UserDtoConverter;
@@ -67,8 +67,8 @@ public class UserService {
     }
 
     public User getCurrentUser() {
-        WebAuthenticationToken authentication
-                = (WebAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        WebAuthentication authentication
+                = (WebAuthentication) SecurityContextHolder.getContext().getAuthentication();
         return (User) authentication.getDetails();
     }
 

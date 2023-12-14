@@ -8,12 +8,12 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 @Data
-public class WebAuthenticationToken implements Authentication {
+public class WebAuthentication implements Authentication {
 
     private final User user;
     private boolean isAuthenticated;
 
-    public WebAuthenticationToken(User user) {
+    public WebAuthentication(User user) {
         this.user = user;
         isAuthenticated = true;
     }

@@ -36,7 +36,7 @@ public class WebAuthenticationProvider implements AuthenticationProvider {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
-                return new WebAuthenticationToken(user);
+                return new WebAuthentication(user);
             }
         }
         return null;

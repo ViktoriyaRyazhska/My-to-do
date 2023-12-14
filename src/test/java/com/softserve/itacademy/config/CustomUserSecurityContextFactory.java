@@ -1,6 +1,6 @@
 package com.softserve.itacademy.config;
 
-import com.softserve.itacademy.config.security.WebAuthenticationToken;
+import com.softserve.itacademy.config.security.WebAuthentication;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.service.UserService;
 import org.mockito.MockingDetails;
@@ -34,7 +34,7 @@ public class CustomUserSecurityContextFactory implements WithSecurityContextFact
         }
 
         SecurityContext context = SecurityContextHolder.createEmptyContext();
-        WebAuthenticationToken token = new WebAuthenticationToken(user);
+        WebAuthentication token = new WebAuthentication(user);
 
         token.setAuthenticated(true);
         context.setAuthentication(token);
