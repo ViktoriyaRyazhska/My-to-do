@@ -5,7 +5,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 
 public class SecurityConfig {
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return null;
-    }
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        return null;
+//    }
 }

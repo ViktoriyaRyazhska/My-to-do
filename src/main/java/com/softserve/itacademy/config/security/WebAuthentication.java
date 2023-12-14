@@ -10,14 +10,6 @@ import java.util.Collection;
 @Data
 public class WebAuthentication implements Authentication {
 
-    private final User user;
-    private boolean isAuthenticated;
-
-    public WebAuthentication(User user) {
-        this.user = user;
-        isAuthenticated = true;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -33,10 +25,6 @@ public class WebAuthentication implements Authentication {
         return null;
     }
 
-    public User getUser() {
-        return null;
-    }
-
     @Override
     public Object getPrincipal() {
         return null;
@@ -44,17 +32,15 @@ public class WebAuthentication implements Authentication {
 
     @Override
     public boolean isAuthenticated() {
-        return true;
+        return false;
     }
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-        //TODO
     }
 
     @Override
     public String getName() {
         return null;
     }
-
 }

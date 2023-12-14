@@ -27,7 +27,6 @@ public class TaskController {
     private final StateService stateService;
     private final TaskTransformer taskTransformer;
 
-    @PreAuthorize("@toDoController.canReadToDo(#todoId)")
     @GetMapping("/create/todos/{todo_id}")
     public String create(@PathVariable("todo_id") long todoId, Model model) {
         model.addAttribute("task", new TaskDto());

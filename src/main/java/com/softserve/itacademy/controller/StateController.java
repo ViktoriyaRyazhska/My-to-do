@@ -16,7 +16,6 @@ public class StateController {
 
     private final StateService stateService;
 
-    @Secured("ADMIN")
     @GetMapping("")
     public String listStates(Model model) {
         model.addAttribute("states", stateService.findAll());
