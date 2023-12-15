@@ -4,7 +4,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,12 +17,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ModelAndView nullEntityReferenceExceptionHandler(HttpServletRequest request, NullEntityReferenceException exception) {
         return getModelAndView(request, HttpStatus.BAD_REQUEST, exception);
-    }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(value = HttpStatus.FORBIDDEN)
-    public ModelAndView accessForbiddenExceptionHandler(HttpServletRequest request, AccessDeniedException exception) {
-        return getModelAndView(request, HttpStatus.FORBIDDEN, exception);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

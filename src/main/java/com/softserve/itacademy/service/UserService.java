@@ -1,7 +1,6 @@
 package com.softserve.itacademy.service;
 
 import com.softserve.itacademy.config.exception.NullEntityReferenceException;
-import com.softserve.itacademy.config.security.WebAuthentication;
 import com.softserve.itacademy.dto.userDto.UpdateUserDto;
 import com.softserve.itacademy.dto.userDto.UserDto;
 import com.softserve.itacademy.dto.userDto.UserDtoConverter;
@@ -10,7 +9,6 @@ import com.softserve.itacademy.model.UserRole;
 import com.softserve.itacademy.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,9 +65,8 @@ public class UserService {
     }
 
     public User getCurrentUser() {
-        WebAuthentication authentication
-                = (WebAuthentication) SecurityContextHolder.getContext().getAuthentication();
-        return (User) authentication.getDetails();
+        //TODO
+        return null;
     }
 
     public Optional<UserDto> findById(long id) {

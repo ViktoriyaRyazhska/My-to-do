@@ -9,7 +9,6 @@ import com.softserve.itacademy.service.TaskService;
 import com.softserve.itacademy.service.ToDoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,7 +34,6 @@ public class TaskController {
         return "create-task";
     }
 
-    @PreAuthorize("@toDoController.canReadToDo(#todoId)")
     @PostMapping("/create/todos/{todo_id}")
     public String create(@PathVariable("todo_id") long todoId, Model model,
                          @Validated @ModelAttribute("task") TaskDto taskDto, BindingResult result) {
@@ -51,7 +49,6 @@ public class TaskController {
         return "redirect:/todos/" + todoId + "/read";
     }
 
-    @PreAuthorize("@toDoController.canReadToDo(#todoId)")
     @GetMapping("/{task_id}/update/todos/{todo_id}")
     public String taskUpdateForm(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId, Model model) {
         TaskDto taskDto = taskTransformer.convertToDto(taskService.readById(taskId));
@@ -61,7 +58,6 @@ public class TaskController {
         return "update-task";
     }
 
-    @PreAuthorize("@toDoController.canReadToDo(#todoId)")
     @PostMapping("/{task_id}/update/todos/{todo_id}")
     public String update(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId, Model model,
                          @Validated @ModelAttribute("task") TaskDto taskDto, BindingResult result) {
@@ -81,7 +77,6 @@ public class TaskController {
         return "redirect:/todos/" + todoId + "/read";
     }
 
-    @PreAuthorize("@toDoController.canReadToDo(#todoId)")
     @GetMapping("/{task_id}/delete/todos/{todo_id}")
     public String delete(@PathVariable("task_id") long taskId, @PathVariable("todo_id") long todoId) {
         taskService.delete(taskId);
