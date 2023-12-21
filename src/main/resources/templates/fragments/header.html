@@ -1,33 +1,11 @@
 <nav xmlns:th="http://www.thymeleaf.org"
      class="navbar navbar-expand-lg bg-primary navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">Home</a>
-
-        <a class="nav-link" th:href="@{/todos/all/users}">My To-Dos</a>
-        <a class="nav-link" th:href="@{/users/all}">List of Users</a>
-        <a class="nav-link" th:href="@{/states}">Manage States</a>
-
-        <!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"-->
-        <!--                data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">-->
-        <!--            <span class="navbar-toggler-icon"></span>-->
-        <!--        </button>-->
-        <!--        <div class="collapse navbar-collapse" id="navbarText">-->
-<!--        <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{|/todos/all/users/${#authentication.details.id}|}">My To-Dos</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{/users/all}">List of Users</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{/states}">Manage States</a>-->
-<!--            </li>-->
-<!--        </ul>-->
-        <!--            <span class="navbar-text" >-->
-        <!--                Hello <a th:href="@{|/users/${#authentication.details.id}/read|}"-->
-        <!--                     th:text="${#authentication.details.firstName}"></a>!-->
-        <!--            </span>-->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li><a class="navbar-brand" th:href="@{/}">Home</a></li>
+            <li><a class="nav-link" th:href="@{/todos/all}">To-Dos</a></li>
+            <li><a class="nav-link" th:href="@{/users/all}">List of Users</a></li>
+            <li><a class="nav-link" th:href="@{/states}">Manage States</a></li>
+        </ul>
     </div>
-    <!--        </form>-->
-    <!--    </div>-->
 </nav>

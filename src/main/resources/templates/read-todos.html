@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/template}"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Users</title>
+</head>
+<body>
+<div layout:fragment="content" style="margin: 0 auto; width: max-content">
+    <h2>List of Todos</h2>
+    <form th:action="@{/users/create}" method="get">
+        <input type="submit" class="btn btn-primary" value="Create new User">
+    </form>
+    <br>
+    <table class="table">
+        <tr>
+            <th>No.</th>
+            <th>Id</th>
+            <th>Full name</th>
+            <th>E-mail</th>
+            <th colspan="2">Operations</th>
+        </tr>
+        <tr th:each="todo, iStat: ${todos}">
+            <td th:text="${iStat.index + 1}"/>
+            <td th:text="${todo.id}"/>
+            <td>
+                <a th:href="@{|/todos/all/users/${todo.id}|}" th:text="${todo.getOwner().getFirstName() + ' ' + todo.getOwner().lastName}"/>
+            </td>
+            <td th:text="${todo.getOwner().getEmail()}"/>
+
+            <td>
+                <a th:href="@{|/todos/${todo.id}/update|}">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{|/todos/${todo.id}/delete|}">Remove</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

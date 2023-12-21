@@ -33,9 +33,20 @@ public class ToDoController {
         return "create-todo";
     }
 
+    @GetMapping("/all")
+    public String readAllToDos(Model model) {
+        List<ToDo> todos = todoService.getAll();
+        //List<Task> tasks = taskService.getByTodoId(id);
+        List<User> users = userService.getAll();
+        model.addAttribute("todos", todos);
+       // model.addAttribute("tasks", tasks);
+        model.addAttribute("users", users);
+        return "read-todos";
+    }
+
     @PostMapping("/create/users/{owner_id}")
     public String createToDo(@PathVariable("owner_id") long ownerId,
-                         @Validated @ModelAttribute("todo") ToDo todo, BindingResult result) {
+                             @Validated @ModelAttribute("todo") ToDo todo, BindingResult result) {
         if (result.hasErrors()) {
             return "create-todo";
         }
@@ -61,7 +72,7 @@ public class ToDoController {
     }
 
     @GetMapping("/{todo_id}/update/users/{owner_id}")
-    public String update(@PathVariable("todo_id") long todoId, @PathVariable("owner_id") long ownerId, Model model) {
+    public String update(@PathVariable("todo_id") long todoId, Model model) {
         ToDo todo = todoService.readById(todoId);
         model.addAttribute("todo", todo);
         return "update-todo";
