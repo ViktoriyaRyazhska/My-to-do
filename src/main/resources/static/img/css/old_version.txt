@@ -5,6 +5,6 @@ update user - greenyellow
 find user by id - green
 /users/{id}/read
 find user by last name - green
-/users/{lastName}/read_by_id
+/users/{lastName}/read_by_name
 delete user by id - red
 /users/{id}/delete
